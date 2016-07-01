@@ -4,11 +4,6 @@ Build a blog application using Rails and deploy it to Heroku.  There are many gu
 
 To submit your solution, add a link to your app to this README file under the submissions heading:
 
-```
-### Submissions
-[John](http://majestic-stallion-0001.herokuapp.com)
-```
-
 Then issue a pull request.
 
 ### Submissions
