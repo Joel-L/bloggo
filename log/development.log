@@ -613,3 +613,41 @@ Processing by UsersController#show as HTML
   Rendered layouts/_header.html.erb (1.1ms)
   Rendered layouts/_footer.html.erb (0.1ms)
 Completed 200 OK in 37ms (Views: 35.8ms | ActiveRecord: 0.6ms)
+
+
+Started DELETE "/logout" for ::1 at 2016-07-08 17:44:36 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"Uj1CYB/YM0FW9zGbyyK8LWWSz98ivdhNIo5IipvHHL3DDTASQvnXIPrsc/hL+Vkk5DIXTJVKVdxhlR2hA1jRTQ=="}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 14ms (ActiveRecord: 2.9ms)
+
+
+Started GET "/" for ::1 at 2016-07-08 17:44:36 -0400
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (0.2ms)
+  Rendered layouts/_rails_default.html.erb (24.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.2ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 35ms (Views: 34.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/1/edit" for ::1 at 2016-07-08 17:44:48 -0400
+Processing by UsersController#edit as HTML
+  Parameters: {"id"=>"1"}
+Redirected to http://localhost:3000/login
+Filter chain halted as :logged_in_user rendered or redirected
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2016-07-08 17:44:48 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.7ms)
+  Rendered layouts/_rails_default.html.erb (26.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.3ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 39ms (Views: 38.5ms | ActiveRecord: 0.0ms)
