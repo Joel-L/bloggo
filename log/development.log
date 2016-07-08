@@ -858,3 +858,902 @@ Processing by UsersController#show as HTML
   Rendered layouts/_header.html.erb (1.4ms)
   Rendered layouts/_footer.html.erb (0.1ms)
 Completed 200 OK in 42ms (Views: 40.7ms | ActiveRecord: 0.5ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (2.5ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20160707171227)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying, "email" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707171227"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Migrating to AddIndexToUsersEmail (20160707174906)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707174906"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddPasswordDigestToUsers (20160707175507)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "password_digest" character varying[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707175507"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddRememberDigestToUsers (20160708182146)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "remember_digest" character varying[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160708182146"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (2.6ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started GET "/" for ::1 at 2016-07-08 18:41:48 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (1.8ms)
+  Rendered layouts/_rails_default.html.erb (451.8ms)
+  Rendered layouts/_shim.html.erb (0.6ms)
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (14.2ms)
+  Rendered layouts/_footer.html.erb (0.6ms)
+Completed 200 OK in 504ms (Views: 501.9ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/login" for ::1 at 2016-07-08 18:41:59 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (567.5ms)
+  Rendered layouts/_rails_default.html.erb (27.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.1ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 607ms (Views: 606.5ms | ActiveRecord: 0.3ms)
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20160707171227)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (3.9ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying, "email" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707171227"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to AddIndexToUsersEmail (20160707174906)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.1ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707174906"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddPasswordDigestToUsers (20160707175507)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "password_digest" character varying[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707175507"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddRememberDigestToUsers (20160708182146)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "remember_digest" character varying[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160708182146"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (2.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+
+Started GET "/login" for ::1 at 2016-07-08 18:43:18 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (505.6ms)
+  Rendered layouts/_rails_default.html.erb (278.1ms)
+  Rendered layouts/_shim.html.erb (0.6ms)
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (27.1ms)
+  Rendered layouts/_footer.html.erb (1.2ms)
+Completed 200 OK in 833ms (Views: 830.1ms | ActiveRecord: 2.6ms)
+
+
+Started POST "/login" for ::1 at 2016-07-08 18:43:31 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"awEyyBXM/WieYKCXy9gJi/8JeO8IrLd+CbFaBdMmeeD6MUC6SO0ZCTJ74vRLA+yCfqmgfL9bOu9Kqg8uS7m0EA==", "session"=>{"email"=>"pilgrim@valinor.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "pilgrim@valinor.com"]]
+  Rendered sessions/new.html.erb within layouts/application (1.4ms)
+  Rendered layouts/_rails_default.html.erb (27.9ms)
+  Rendered layouts/_shim.html.erb (0.1ms)
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.5ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 43ms (Views: 40.0ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/login" for ::1 at 2016-07-08 18:43:56 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"cQNU8nEesUvYOX9XX4oAsx0L+H/9oljXMZvLrAOsAMvgMyaALD9VKnQiPTTfUeW6nKsg7EpV1UZygJ6HmzPNOw==", "session"=>{"email"=>"pilgrim@valinor.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "pilgrim@valinor.com"]]
+  Rendered sessions/new.html.erb within layouts/application (1.1ms)
+  Rendered layouts/_rails_default.html.erb (27.6ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.2ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 39ms (Views: 37.0ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/login" for ::1 at 2016-07-08 18:44:18 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"xOntfA69vhWC9B53LTL3S0GUIvm3K5YjArmb+gTjVidV2Z8OU5xadC7vXBSt6RJCwDT6agDcG7JBos7RnHyb1w==", "session"=>{"email"=>"pilgrim@valinor.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "pilgrim@valinor.com"]]
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+  Rendered layouts/_rails_default.html.erb (50.0ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.1ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 62ms (Views: 60.2ms | ActiveRecord: 0.5ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20160707171227)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying, "email" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707171227"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to AddIndexToUsersEmail (20160707174906)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707174906"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddPasswordDigestToUsers (20160707175507)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "password_digest" character varying[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707175507"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddRememberDigestToUsers (20160708182146)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "remember_digest" character varying[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160708182146"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (3.0ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('pilgrim@valinor.com') LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Gandalf"], ["email", "pilgrim@valinor.com"], ["password_digest", "$2a$10$z/2i2eykGqUx48NmYi3SXO/S7o0AAWRuzK1y.Q7N7R9GSa6Uin4Li"], ["created_at", "2016-07-08 22:48:31.774485"], ["updated_at", "2016-07-08 22:48:31.774485"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('starbuck@galactica.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Starbuck"], ["email", "starbuck@galactica.com"], ["password_digest", "$2a$10$7.lqhzkl8Q/mooX24hevQelLliDxgiBmj2lEG24gta0eqXiJbZ1SS"], ["created_at", "2016-07-08 22:48:31.848172"], ["updated_at", "2016-07-08 22:48:31.848172"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-1@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Verlie Nicolas DVM"], ["email", "elf-1@avallone.com"], ["password_digest", "$2a$10$SUmiU9bJnqomsgXzCmsmjuzCCwMVevEuMNLcE.qKWSJvZAn8X63LC"], ["created_at", "2016-07-08 22:48:32.375733"], ["updated_at", "2016-07-08 22:48:32.375733"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-2@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Christiana Reichert"], ["email", "elf-2@avallone.com"], ["password_digest", "$2a$10$hZHxepQ9GkiGNnbEu7zE3.DD49ChnhPYdI1Z7Xmw.DpH6iQyeGGy."], ["created_at", "2016-07-08 22:48:32.451276"], ["updated_at", "2016-07-08 22:48:32.451276"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-3@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Tate Mayer"], ["email", "elf-3@avallone.com"], ["password_digest", "$2a$10$H2POeMw83fP.SiGwqCvX5.gJjMxasXuYZSszZaG.l5Rl0MAfrIuVS"], ["created_at", "2016-07-08 22:48:32.526831"], ["updated_at", "2016-07-08 22:48:32.526831"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-4@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Sydnee Mertz"], ["email", "elf-4@avallone.com"], ["password_digest", "$2a$10$UO/fTa9h6g6c31.Vx2nU9OU9aB/eE67BWSEwB4noGhbWw./2RaaSm"], ["created_at", "2016-07-08 22:48:32.601509"], ["updated_at", "2016-07-08 22:48:32.601509"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-5@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Thea Prohaska"], ["email", "elf-5@avallone.com"], ["password_digest", "$2a$10$ZnAOjqxy0DW..W9w5nGzneDR5b6g79kIdIvLgYSC6OTPGDb0mli6G"], ["created_at", "2016-07-08 22:48:32.673653"], ["updated_at", "2016-07-08 22:48:32.673653"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-6@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Liana Wilkinson"], ["email", "elf-6@avallone.com"], ["password_digest", "$2a$10$dNVOwkwLSVXaxsPZGEKG4u9v1S2dTQkQIEIowx4ivqRL0EBTze/6i"], ["created_at", "2016-07-08 22:48:32.745812"], ["updated_at", "2016-07-08 22:48:32.745812"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-7@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Horacio Schmidt V"], ["email", "elf-7@avallone.com"], ["password_digest", "$2a$10$VoBoyukL6qLNno.VK.9xluyz.XaCRfmPVM/HmBKOg2a6IJhb0FuaC"], ["created_at", "2016-07-08 22:48:32.818411"], ["updated_at", "2016-07-08 22:48:32.818411"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-8@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Brisa Bayer"], ["email", "elf-8@avallone.com"], ["password_digest", "$2a$10$PNgPkCo0wIu8wHQB2AJ.QOZNclILMbvXQETHYXfOQapUy2xNfljCu"], ["created_at", "2016-07-08 22:48:32.891684"], ["updated_at", "2016-07-08 22:48:32.891684"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-9@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Geo Hegmann"], ["email", "elf-9@avallone.com"], ["password_digest", "$2a$10$/w2JiM4z.GFiQE4/1WHtKezCmBFJ01uc66W3wUXD6tTyos2LFPjMu"], ["created_at", "2016-07-08 22:48:32.966267"], ["updated_at", "2016-07-08 22:48:32.966267"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-10@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mr. Jody Satterfield"], ["email", "elf-10@avallone.com"], ["password_digest", "$2a$10$j.lPiHAl6zLCTujy2Rb.MOYBqfrt4lHogiCUFlYBQveMXzoL2Gq4K"], ["created_at", "2016-07-08 22:48:33.037666"], ["updated_at", "2016-07-08 22:48:33.037666"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-11@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Dr. Abner Huels"], ["email", "elf-11@avallone.com"], ["password_digest", "$2a$10$jWNKhkxV4iBEudfwK229nO11spmqzbut8uKHWDzWXAsmg4b0Z6H46"], ["created_at", "2016-07-08 22:48:33.112831"], ["updated_at", "2016-07-08 22:48:33.112831"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-12@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Beatrice Erdman"], ["email", "elf-12@avallone.com"], ["password_digest", "$2a$10$ctvmqP.fyfKiT4j..OJ...RMDKNzL2opeNwr6tBbriwkWbNkMNPiK"], ["created_at", "2016-07-08 22:48:33.184916"], ["updated_at", "2016-07-08 22:48:33.184916"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-13@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Theo White"], ["email", "elf-13@avallone.com"], ["password_digest", "$2a$10$975lfTjECX5uMzj8enePFuX11ATbsAEUXdiYy00EnxcfYC2iLBq2u"], ["created_at", "2016-07-08 22:48:33.260231"], ["updated_at", "2016-07-08 22:48:33.260231"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-14@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mazie Kulas"], ["email", "elf-14@avallone.com"], ["password_digest", "$2a$10$gpQlPJohBxVkZEHEkOvVG.NKYWjd.ZnxJys/9u3KcbNKtVXt0DprK"], ["created_at", "2016-07-08 22:48:33.334253"], ["updated_at", "2016-07-08 22:48:33.334253"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-15@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Viola Jacobi"], ["email", "elf-15@avallone.com"], ["password_digest", "$2a$10$acRXzaQwaHGEiygC8.pyKuvXqR0ZtQH8761fLqKQ9dNp1HWkhI1WK"], ["created_at", "2016-07-08 22:48:33.406245"], ["updated_at", "2016-07-08 22:48:33.406245"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-16@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Elmira Sauer"], ["email", "elf-16@avallone.com"], ["password_digest", "$2a$10$c4FlrDQyPMjGG20mDx.IduwPciMXbjJgECeZx4PvbhOe2HOZTNpL."], ["created_at", "2016-07-08 22:48:33.481529"], ["updated_at", "2016-07-08 22:48:33.481529"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-17@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mr. Fredrick Gottlieb"], ["email", "elf-17@avallone.com"], ["password_digest", "$2a$10$/8uhC9bR.I68QF12K1o8ie3N8abi04o2yvXpNRElMqS8mvd81ELtm"], ["created_at", "2016-07-08 22:48:33.556287"], ["updated_at", "2016-07-08 22:48:33.556287"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-18@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ms. Jannie Wiegand"], ["email", "elf-18@avallone.com"], ["password_digest", "$2a$10$x2.1ieK1TyozB/YY0.8I8ebi0jEfxMlE/apIgPq3dJtVaRDnHtu.u"], ["created_at", "2016-07-08 22:48:33.631681"], ["updated_at", "2016-07-08 22:48:33.631681"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-19@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Verlie Nader"], ["email", "elf-19@avallone.com"], ["password_digest", "$2a$10$m13rDxIpIXq8PQQtSrEXdehlA0WH5sAcj3WYoYJmysWaP0f6mdd4y"], ["created_at", "2016-07-08 22:48:33.710965"], ["updated_at", "2016-07-08 22:48:33.710965"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-20@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ms. Maida Wolff"], ["email", "elf-20@avallone.com"], ["password_digest", "$2a$10$5EwDpIHYfKgMtQ5TASZ6buxciLg6jz3esTFLXX6R2018NVtQQ0MwK"], ["created_at", "2016-07-08 22:48:33.787666"], ["updated_at", "2016-07-08 22:48:33.787666"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-21@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jaiden Farrell"], ["email", "elf-21@avallone.com"], ["password_digest", "$2a$10$YOOgRQ4y9l12d7qggbi5k.wWaOQkS7QOfwT02lsU5CfpzO0BOTmm."], ["created_at", "2016-07-08 22:48:33.862868"], ["updated_at", "2016-07-08 22:48:33.862868"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-22@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Bette Altenwerth"], ["email", "elf-22@avallone.com"], ["password_digest", "$2a$10$y//I0YboNuRQTVq.f1.LGe3saNpUdL5KS55YDpsM/nVrPmblU.Yi2"], ["created_at", "2016-07-08 22:48:33.935494"], ["updated_at", "2016-07-08 22:48:33.935494"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-23@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Demario Leannon III"], ["email", "elf-23@avallone.com"], ["password_digest", "$2a$10$UfxGXEzudwWOzM6L3hTDEuelcfz8UmUSJyhxkATZF4j8zZ.2NjqO6"], ["created_at", "2016-07-08 22:48:34.012067"], ["updated_at", "2016-07-08 22:48:34.012067"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-24@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lyda Emmerich"], ["email", "elf-24@avallone.com"], ["password_digest", "$2a$10$M9iivE.XMO9Ji7E./vg/yOJow8iDTLAzNFkR4Y58pvq2VS3TSGq3a"], ["created_at", "2016-07-08 22:48:34.087384"], ["updated_at", "2016-07-08 22:48:34.087384"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-25@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Tate Gusikowski"], ["email", "elf-25@avallone.com"], ["password_digest", "$2a$10$KT2YFRhOZQ53f78VYo74gu97IKwHnIb6JHqjTSARKMMDE7fB3SVWa"], ["created_at", "2016-07-08 22:48:34.159940"], ["updated_at", "2016-07-08 22:48:34.159940"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-26@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mack Bruen"], ["email", "elf-26@avallone.com"], ["password_digest", "$2a$10$fNnzbJC1I0xtUa6vyvjRIuIbVqmdtgjuaFrrqO/c78WL2GJ6uG7um"], ["created_at", "2016-07-08 22:48:34.231982"], ["updated_at", "2016-07-08 22:48:34.231982"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-27@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Dangelo Dietrich"], ["email", "elf-27@avallone.com"], ["password_digest", "$2a$10$wwIRzQOhEBRysPSmeJDYkOBBcLfKpplUB5sPLvBZBy31AL45BT6SO"], ["created_at", "2016-07-08 22:48:34.307243"], ["updated_at", "2016-07-08 22:48:34.307243"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-28@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Adan Schulist"], ["email", "elf-28@avallone.com"], ["password_digest", "$2a$10$eYk1BKuIW14r0Ja4VQjWNeK9MSgUQowohZJiqf0XmqM3b11/m5c9S"], ["created_at", "2016-07-08 22:48:34.379814"], ["updated_at", "2016-07-08 22:48:34.379814"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-29@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Kyler Schmeler"], ["email", "elf-29@avallone.com"], ["password_digest", "$2a$10$d4d1ObxCXoKbrWVCNrhM0e278E.2fqmiFuNi09FVRuHWrPLdyWpTi"], ["created_at", "2016-07-08 22:48:34.456462"], ["updated_at", "2016-07-08 22:48:34.456462"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-30@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Cecilia Bradtke"], ["email", "elf-30@avallone.com"], ["password_digest", "$2a$10$kI5bB.ChzwvwQAZpMKAc9u0jFnqvOpT9qK6SQlXwPsrJV5gccy5gy"], ["created_at", "2016-07-08 22:48:34.531180"], ["updated_at", "2016-07-08 22:48:34.531180"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-31@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Micah Langworth"], ["email", "elf-31@avallone.com"], ["password_digest", "$2a$10$oxlrWNB2oQC.rBeAuzqujOXgqkymzguXRbtFIeF3JydVMIPjyYLGC"], ["created_at", "2016-07-08 22:48:34.605577"], ["updated_at", "2016-07-08 22:48:34.605577"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-32@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Sophie Mosciski IV"], ["email", "elf-32@avallone.com"], ["password_digest", "$2a$10$1VbidqXQk7SRi/xi3CKF.OJsSK66TCD08nbBIZJbUlOO..ZylVdGu"], ["created_at", "2016-07-08 22:48:34.678080"], ["updated_at", "2016-07-08 22:48:34.678080"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-33@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Earnestine Ryan"], ["email", "elf-33@avallone.com"], ["password_digest", "$2a$10$k1R8yM6BjCiaEaEPP.2FM.OXpElJ3KQj/Kl9CCCEZo1di6FgeOFLC"], ["created_at", "2016-07-08 22:48:34.752088"], ["updated_at", "2016-07-08 22:48:34.752088"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-34@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Kareem Funk"], ["email", "elf-34@avallone.com"], ["password_digest", "$2a$10$xEMeC2QeEX8xtVxdolkIXOlRPfbOd26l/glrxc9w5kwsbd6CKpOx."], ["created_at", "2016-07-08 22:48:34.828266"], ["updated_at", "2016-07-08 22:48:34.828266"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-35@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mrs. Diamond O'Kon"], ["email", "elf-35@avallone.com"], ["password_digest", "$2a$10$iBmsKFrHYMycvBa4x3L7Fu3PW4YsePggxP1asZPJvE32HSxp.vAKi"], ["created_at", "2016-07-08 22:48:34.900976"], ["updated_at", "2016-07-08 22:48:34.900976"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-36@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Billie Romaguera"], ["email", "elf-36@avallone.com"], ["password_digest", "$2a$10$H2jEKCH7cvuUH21u9wdFrulkU.QmekyWVy0Maj8EmxqGZQJPQY6n6"], ["created_at", "2016-07-08 22:48:34.980404"], ["updated_at", "2016-07-08 22:48:34.980404"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-37@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Dr. Arlo Donnelly"], ["email", "elf-37@avallone.com"], ["password_digest", "$2a$10$rABYAPFBhAJra.aJKCCwS.RsDyy7qjd/G0Qr7x2sWl2zT7eNWGppe"], ["created_at", "2016-07-08 22:48:35.058611"], ["updated_at", "2016-07-08 22:48:35.058611"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-38@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Tommie Considine"], ["email", "elf-38@avallone.com"], ["password_digest", "$2a$10$ZGKcbpg4SbJjNEfNU78nxu/uhWPzw7MH2wAPOfaFub8Xr2/YHIDHi"], ["created_at", "2016-07-08 22:48:35.133778"], ["updated_at", "2016-07-08 22:48:35.133778"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-39@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Emory Boehm"], ["email", "elf-39@avallone.com"], ["password_digest", "$2a$10$rDorId4AVIG2gjCnj3/bruol7IESVzrflV0B.cjhiz1lFCTDpmAW."], ["created_at", "2016-07-08 22:48:35.206326"], ["updated_at", "2016-07-08 22:48:35.206326"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-40@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lindsey Runte"], ["email", "elf-40@avallone.com"], ["password_digest", "$2a$10$MhulWUQCDIV5YIYKPB8Jmu0n.5KzrfoCS/nat7ontgWeocvZ/oWla"], ["created_at", "2016-07-08 22:48:35.280431"], ["updated_at", "2016-07-08 22:48:35.280431"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-41@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Norene Dickens DVM"], ["email", "elf-41@avallone.com"], ["password_digest", "$2a$10$zKzJ34g.NYE3R.Qbk0n0bu2y3Ir.23qOsfBMj4p5kFCcPBjYqrgbm"], ["created_at", "2016-07-08 22:48:35.353065"], ["updated_at", "2016-07-08 22:48:35.353065"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-42@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Brenda Bernhard"], ["email", "elf-42@avallone.com"], ["password_digest", "$2a$10$JQEkqyz0zH8vZF0n/ajv4uAezMztTmn8OyQr5tfim8OVVACq.XF0G"], ["created_at", "2016-07-08 22:48:35.426652"], ["updated_at", "2016-07-08 22:48:35.426652"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-43@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Herta Rodriguez"], ["email", "elf-43@avallone.com"], ["password_digest", "$2a$10$mWUWAvzoUHaieVyKz4d9weRIbuQfwOhLy/pkIuSLH3hEnMVVZYZRK"], ["created_at", "2016-07-08 22:48:35.501370"], ["updated_at", "2016-07-08 22:48:35.501370"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-44@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Aletha Fay"], ["email", "elf-44@avallone.com"], ["password_digest", "$2a$10$CvXxXGbdmgO.GUC/cVuq1OwAg2JV7Iug..Iuzb9h26fRs7FN.N4aa"], ["created_at", "2016-07-08 22:48:35.573534"], ["updated_at", "2016-07-08 22:48:35.573534"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-45@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ms. Trey Legros"], ["email", "elf-45@avallone.com"], ["password_digest", "$2a$10$TMNPyK0rSvbhpUEOX5cewuqp87To1h7Fyr.arIRf5lFRnUERipDxC"], ["created_at", "2016-07-08 22:48:35.646999"], ["updated_at", "2016-07-08 22:48:35.646999"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-46@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Felicita Legros"], ["email", "elf-46@avallone.com"], ["password_digest", "$2a$10$gAd9d5JO86FSYYMCxTpiPeY1Huezm9IWXtnXLNzXUkX4Ngdzk6lpa"], ["created_at", "2016-07-08 22:48:35.724353"], ["updated_at", "2016-07-08 22:48:35.724353"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-47@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Althea Lang I"], ["email", "elf-47@avallone.com"], ["password_digest", "$2a$10$Jkzaacv5u7aWzuDKynKCteVznKfth.mNd0dEKtKoV2o97F24TPgBC"], ["created_at", "2016-07-08 22:48:35.798876"], ["updated_at", "2016-07-08 22:48:35.798876"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-48@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mr. Nigel Sawayn"], ["email", "elf-48@avallone.com"], ["password_digest", "$2a$10$/2Yysuy18KlQSbYcWL0NkOa26B507DLuop07G4Obj7EYu9rZkbtHm"], ["created_at", "2016-07-08 22:48:35.876722"], ["updated_at", "2016-07-08 22:48:35.876722"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-49@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Dr. Tito Stoltenberg"], ["email", "elf-49@avallone.com"], ["password_digest", "$2a$10$ArJfgmoX5Pa2w06sjMWkhOVfQR59yVs2OeUmiReQU4z/s.CbhfYz2"], ["created_at", "2016-07-08 22:48:35.952024"], ["updated_at", "2016-07-08 22:48:35.952024"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-50@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Helga Steuber"], ["email", "elf-50@avallone.com"], ["password_digest", "$2a$10$5l9VuXTJ3fFYxv79sD9rjurPnc4bif2ShuJh5HIY3nlTyOk1QDhvy"], ["created_at", "2016-07-08 22:48:36.027046"], ["updated_at", "2016-07-08 22:48:36.027046"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-51@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Concepcion Becker IV"], ["email", "elf-51@avallone.com"], ["password_digest", "$2a$10$jWl9mu1ZYbhkkR83iun5Pev9OYLgyNMfCXzLOW9/xpg3ICtO7I1Fq"], ["created_at", "2016-07-08 22:48:36.099853"], ["updated_at", "2016-07-08 22:48:36.099853"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-52@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Finn Stanton PhD"], ["email", "elf-52@avallone.com"], ["password_digest", "$2a$10$MMdvjJQOVYGpWGUcOpEb8Oj8ky1gVZfkq94DGCFSmzVhjYPt1BeyG"], ["created_at", "2016-07-08 22:48:36.173910"], ["updated_at", "2016-07-08 22:48:36.173910"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-53@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Stanford Blanda"], ["email", "elf-53@avallone.com"], ["password_digest", "$2a$10$HmP8l.4BB8YCLOYjCk5ZVOwW5vWTkahHDwLc1hvU0dclMHblua8V2"], ["created_at", "2016-07-08 22:48:36.246456"], ["updated_at", "2016-07-08 22:48:36.246456"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-54@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mr. Lilyan Johnson"], ["email", "elf-54@avallone.com"], ["password_digest", "$2a$10$9JNQzJFHCZqQFwzbf3.aCOusH6icr5FGA41FpRC/qu5M1QpO2FCW6"], ["created_at", "2016-07-08 22:48:36.318760"], ["updated_at", "2016-07-08 22:48:36.318760"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-55@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Miss Virgie Kilback"], ["email", "elf-55@avallone.com"], ["password_digest", "$2a$10$AyZS81iAuT3f8fj4zXqqUe4cgMdnhJoQdcV4sgBukWxe9I/izYWNq"], ["created_at", "2016-07-08 22:48:36.394184"], ["updated_at", "2016-07-08 22:48:36.394184"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-56@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mrs. Brody Kertzmann"], ["email", "elf-56@avallone.com"], ["password_digest", "$2a$10$f3dq69asKvpw0OIn/tMcJOEzHSX2ue2R2qRzVIg0eqS/xKrins0u2"], ["created_at", "2016-07-08 22:48:36.467851"], ["updated_at", "2016-07-08 22:48:36.467851"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-57@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lane Kassulke"], ["email", "elf-57@avallone.com"], ["password_digest", "$2a$10$NeN4mRbb7yAxLIv6gIppCe0W7GPUn2qBunMJnzZdCt1/hj.hhevgq"], ["created_at", "2016-07-08 22:48:36.542931"], ["updated_at", "2016-07-08 22:48:36.542931"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-58@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Tyson Rogahn"], ["email", "elf-58@avallone.com"], ["password_digest", "$2a$10$RlB6E3nkdjZJn.2vJgV1GeI7R21DCYVM5i6/gKP0XA7/9vOYpZUi6"], ["created_at", "2016-07-08 22:48:36.616822"], ["updated_at", "2016-07-08 22:48:36.616822"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-59@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Gene Lesch"], ["email", "elf-59@avallone.com"], ["password_digest", "$2a$10$EmrzeytfOFTHYP7fma1zJe5jdLnD26TT5cadQFkMsfjO/1H17zur2"], ["created_at", "2016-07-08 22:48:36.692168"], ["updated_at", "2016-07-08 22:48:36.692168"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-60@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ms. Timmothy Schuppe"], ["email", "elf-60@avallone.com"], ["password_digest", "$2a$10$y2uzqiviB3fEZq1z/z9qmO9eN9YnH.fE0Tw0vvWxqppMnRa.p9jP6"], ["created_at", "2016-07-08 22:48:36.764933"], ["updated_at", "2016-07-08 22:48:36.764933"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-61@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Misael Stroman"], ["email", "elf-61@avallone.com"], ["password_digest", "$2a$10$fYlyKutgN9S2EfzdGaJB5.jozrQ4mHoWufRCQ5X8PrhnFhE8uzqFS"], ["created_at", "2016-07-08 22:48:36.838088"], ["updated_at", "2016-07-08 22:48:36.838088"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-62@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lizeth Hoppe"], ["email", "elf-62@avallone.com"], ["password_digest", "$2a$10$4VnGhU4j9DBYKoc/FnsKSOVXUrIzQpsUSaV2qxMJ8p46TW80tW72u"], ["created_at", "2016-07-08 22:48:36.910242"], ["updated_at", "2016-07-08 22:48:36.910242"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-63@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Citlalli Ratke"], ["email", "elf-63@avallone.com"], ["password_digest", "$2a$10$RqBFtFOAMiyc/tqNjnkKROpBeU.z4W4VEJhGqRseDcScQbr6xFROO"], ["created_at", "2016-07-08 22:48:36.984430"], ["updated_at", "2016-07-08 22:48:36.984430"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-64@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Scottie Swaniawski"], ["email", "elf-64@avallone.com"], ["password_digest", "$2a$10$jf6NlLK3uYMVcWi5fM34YeLP/WwdCEnUlakTk0LJszmexn3HpJ/te"], ["created_at", "2016-07-08 22:48:37.058051"], ["updated_at", "2016-07-08 22:48:37.058051"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-65@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Brad Ankunding"], ["email", "elf-65@avallone.com"], ["password_digest", "$2a$10$e/hy.2/GZ/KTrcy0dOS2Zu8UjU5zf7F1JhqqM434nmbwIA0cDNLti"], ["created_at", "2016-07-08 22:48:37.130302"], ["updated_at", "2016-07-08 22:48:37.130302"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-66@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Irving Runte"], ["email", "elf-66@avallone.com"], ["password_digest", "$2a$10$FNwnsCvt2rk4UUkvvGWLeOPnCPmIPqmZQPShbcvB6XPJ5ZjS3LE/y"], ["created_at", "2016-07-08 22:48:37.204319"], ["updated_at", "2016-07-08 22:48:37.204319"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-67@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Nellie Daniel"], ["email", "elf-67@avallone.com"], ["password_digest", "$2a$10$GAD.XN.NFDqO20CwgKdxKuRJlL4JMj8CdnPQIQLnDP5D5oWWzqym2"], ["created_at", "2016-07-08 22:48:37.279403"], ["updated_at", "2016-07-08 22:48:37.279403"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-68@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ms. Bernie Gleichner"], ["email", "elf-68@avallone.com"], ["password_digest", "$2a$10$qojn.ZmnyUIiikYA4I8gPutpSI7asYksuh3cjjHJyf5ac7qz5IJbS"], ["created_at", "2016-07-08 22:48:37.351711"], ["updated_at", "2016-07-08 22:48:37.351711"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-69@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mr. Brett Russel"], ["email", "elf-69@avallone.com"], ["password_digest", "$2a$10$EXhF9BIiIjKBkrFbtDsFLeGxcPynDiml3NaeHyW03y/zK0IMImKmO"], ["created_at", "2016-07-08 22:48:37.426987"], ["updated_at", "2016-07-08 22:48:37.426987"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-70@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Webster O'Connell"], ["email", "elf-70@avallone.com"], ["password_digest", "$2a$10$FlVVVxQG5.pRtiC5XF65be/GtuKGFNQwnN/Do9HbYfvGb9wobKvxy"], ["created_at", "2016-07-08 22:48:37.501960"], ["updated_at", "2016-07-08 22:48:37.501960"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-71@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Einar Price"], ["email", "elf-71@avallone.com"], ["password_digest", "$2a$10$WMCvJF/8YAA5BaTkVy8EaO2D1som2oM.zSCnh1Rrkv3GS0JKK0xLK"], ["created_at", "2016-07-08 22:48:37.573444"], ["updated_at", "2016-07-08 22:48:37.573444"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-72@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Caleigh Doyle"], ["email", "elf-72@avallone.com"], ["password_digest", "$2a$10$mwUJ1DubXnUAc4bPRgpEkOZirMBo23fOKC.XaUcIVs7VQ2QtkTS/."], ["created_at", "2016-07-08 22:48:37.648234"], ["updated_at", "2016-07-08 22:48:37.648234"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-73@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Green Langworth"], ["email", "elf-73@avallone.com"], ["password_digest", "$2a$10$sVg4xQCRVfxUCy8do5AkBON9.OtVYqfe6MhBe2NkqI/ZCxdafEAO6"], ["created_at", "2016-07-08 22:48:37.720549"], ["updated_at", "2016-07-08 22:48:37.720549"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-74@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Liliana Torphy DDS"], ["email", "elf-74@avallone.com"], ["password_digest", "$2a$10$xcqpF2z9xBmccv610bPkx.JzJDJwKpouC/pXmYVGkgKg9Urm2wtPS"], ["created_at", "2016-07-08 22:48:37.794869"], ["updated_at", "2016-07-08 22:48:37.794869"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-75@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jeramy Auer"], ["email", "elf-75@avallone.com"], ["password_digest", "$2a$10$U0n4QOGjaOnY79DcYPiOOeAPPnKpQz/Z5XTyOqiqHHn/OFrvH7bXm"], ["created_at", "2016-07-08 22:48:37.869206"], ["updated_at", "2016-07-08 22:48:37.869206"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-76@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Karolann Baumbach"], ["email", "elf-76@avallone.com"], ["password_digest", "$2a$10$v0i/MiP4AO7cKZ9rOsp7jeu2yO6gQLmb.gIANQy2Ahv.mYDWOV5te"], ["created_at", "2016-07-08 22:48:37.942035"], ["updated_at", "2016-07-08 22:48:37.942035"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-77@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Shea Koepp"], ["email", "elf-77@avallone.com"], ["password_digest", "$2a$10$zezxBU/p6TifDROGflkk9emvN0PpQ5PPFa91bxSXDkwFU7rUpbB/K"], ["created_at", "2016-07-08 22:48:38.015497"], ["updated_at", "2016-07-08 22:48:38.015497"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-78@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Louie Lockman"], ["email", "elf-78@avallone.com"], ["password_digest", "$2a$10$fmG/Aqubs9vo96KBZS2FWObTgnh/HWADBw0VEpmw/VL23P4o/fHu."], ["created_at", "2016-07-08 22:48:38.090863"], ["updated_at", "2016-07-08 22:48:38.090863"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-79@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lucy Feest"], ["email", "elf-79@avallone.com"], ["password_digest", "$2a$10$YZYavDSt7tu3R69w23sayObzyrdPFPLxyId6KmW5HNMF9wqAM7Quu"], ["created_at", "2016-07-08 22:48:38.165866"], ["updated_at", "2016-07-08 22:48:38.165866"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-80@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Eliseo Brekke"], ["email", "elf-80@avallone.com"], ["password_digest", "$2a$10$YY8xXApufZIw9gIxiWQ6c.hmWl3.5iIV5Fqg1XdH0h7vHYERWgnrW"], ["created_at", "2016-07-08 22:48:38.238206"], ["updated_at", "2016-07-08 22:48:38.238206"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-81@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Vena Mante"], ["email", "elf-81@avallone.com"], ["password_digest", "$2a$10$vXoU1zoiyzJ.c2C8f.y10.nqfihyyidAugJxcMtofUBe6WbXNbwrS"], ["created_at", "2016-07-08 22:48:38.312422"], ["updated_at", "2016-07-08 22:48:38.312422"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-82@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Greta Goyette"], ["email", "elf-82@avallone.com"], ["password_digest", "$2a$10$uVfQ6fIEAUhIFTUxCM5LtOPA24tho7lJ1FfNfNxEk7QIqIJYdbsV6"], ["created_at", "2016-07-08 22:48:38.385269"], ["updated_at", "2016-07-08 22:48:38.385269"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-83@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Palma Effertz"], ["email", "elf-83@avallone.com"], ["password_digest", "$2a$10$YbYcBZH3tkIuNsowL/s5ju.Ib6N2ZH6IoXbQC0UZ25g2kz2HWEaVK"], ["created_at", "2016-07-08 22:48:38.459535"], ["updated_at", "2016-07-08 22:48:38.459535"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-84@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Burnice Stracke"], ["email", "elf-84@avallone.com"], ["password_digest", "$2a$10$lKMOF8L4ovEX2JtanwaP/OInM5BGmo1.sEg5s7MCqLNXB7qjeVZv6"], ["created_at", "2016-07-08 22:48:38.532981"], ["updated_at", "2016-07-08 22:48:38.532981"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-85@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Reuben Kunde"], ["email", "elf-85@avallone.com"], ["password_digest", "$2a$10$k6LvaDfn0A3Fjt1A17lv3uRoYWf1856bcE4DeeuKC9IrUrwQKlzkm"], ["created_at", "2016-07-08 22:48:38.604509"], ["updated_at", "2016-07-08 22:48:38.604509"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-86@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Kody Heidenreich DDS"], ["email", "elf-86@avallone.com"], ["password_digest", "$2a$10$tFMDpyLKt0XzjRfpVBsHbuEhAbiOlvPIH5RAmHFNYj9o2Huhsfwby"], ["created_at", "2016-07-08 22:48:38.677348"], ["updated_at", "2016-07-08 22:48:38.677348"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-87@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Terence Ferry DVM"], ["email", "elf-87@avallone.com"], ["password_digest", "$2a$10$3JjwjCnjmf8gMQHPPrP3jeXbNvzjdez.1pWgLpUTPQm1gkKvzWD2C"], ["created_at", "2016-07-08 22:48:38.756573"], ["updated_at", "2016-07-08 22:48:38.756573"]]
+  [1m[36m (27.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-88@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Bernhard Kertzmann"], ["email", "elf-88@avallone.com"], ["password_digest", "$2a$10$4FYOZKI5HeEkIE.KTNm8o.KnhALdnJghj.EZE/l1g//Q5APwBtSo2"], ["created_at", "2016-07-08 22:48:38.863074"], ["updated_at", "2016-07-08 22:48:38.863074"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-89@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Brody Schamberger"], ["email", "elf-89@avallone.com"], ["password_digest", "$2a$10$0o0dSmb2zdAZ6cq4SmreE.HIF2.d846e0bSsJoltzoMsw0jBjk.CO"], ["created_at", "2016-07-08 22:48:38.937777"], ["updated_at", "2016-07-08 22:48:38.937777"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-90@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mohammed Kohler"], ["email", "elf-90@avallone.com"], ["password_digest", "$2a$10$TtaKy/ldVQ9ZhDUJT.u1ae6TR4jIlLeRQxELBEPlGSfps/kWUtcvy"], ["created_at", "2016-07-08 22:48:39.010369"], ["updated_at", "2016-07-08 22:48:39.010369"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-91@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Brooklyn Wehner"], ["email", "elf-91@avallone.com"], ["password_digest", "$2a$10$I/iRJVePUafN7a7cj4GNmePegBJlAH4A2b8t3iBOGRdQkytV6XH0G"], ["created_at", "2016-07-08 22:48:39.084510"], ["updated_at", "2016-07-08 22:48:39.084510"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-92@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Carlee Steuber"], ["email", "elf-92@avallone.com"], ["password_digest", "$2a$10$XWFxIza/F23UusD1cxgpmuVzW6kY4TjxOgVdfY0RL8uix7M6ufWoG"], ["created_at", "2016-07-08 22:48:39.157398"], ["updated_at", "2016-07-08 22:48:39.157398"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-93@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jovanny Mertz"], ["email", "elf-93@avallone.com"], ["password_digest", "$2a$10$ypnAT.GhHArvdQZm8lrPCONnh0fTTqS1ZUhL5sYuVDd1NqwpuDVYS"], ["created_at", "2016-07-08 22:48:39.231571"], ["updated_at", "2016-07-08 22:48:39.231571"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-94@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Rodrigo Cormier"], ["email", "elf-94@avallone.com"], ["password_digest", "$2a$10$WVogX178wXXlyR60GlsEWOus7Sd3zgCtxhmT.05kdEF2VwckKmOJu"], ["created_at", "2016-07-08 22:48:39.306160"], ["updated_at", "2016-07-08 22:48:39.306160"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-95@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Telly Mohr"], ["email", "elf-95@avallone.com"], ["password_digest", "$2a$10$JtblZiZ7oSVvYvk9p.IbHOEKGCE9MLwTjAG13hgwtqVymWgFWILAy"], ["created_at", "2016-07-08 22:48:39.380365"], ["updated_at", "2016-07-08 22:48:39.380365"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-96@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Zoey Murphy"], ["email", "elf-96@avallone.com"], ["password_digest", "$2a$10$yzQenDwfpNsPK24RsSUsdOUcsxDVTMDqlcAHSP1b1WrVmZHU8VYfW"], ["created_at", "2016-07-08 22:48:39.452436"], ["updated_at", "2016-07-08 22:48:39.452436"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-97@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ms. Edwardo Turcotte"], ["email", "elf-97@avallone.com"], ["password_digest", "$2a$10$Jlf5ZS3zVpJ5bUkRQ7jQyuQPgvTHGjpECAs2N4gxEOoK/oq/7fI3q"], ["created_at", "2016-07-08 22:48:39.527270"], ["updated_at", "2016-07-08 22:48:39.527270"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-98@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Elizabeth Hand"], ["email", "elf-98@avallone.com"], ["password_digest", "$2a$10$4Qq/RfK8kdXw2Vh99jjp/Ou7UlMdS0z6Tr8sAoyc8K1x75tqfbXXK"], ["created_at", "2016-07-08 22:48:39.599626"], ["updated_at", "2016-07-08 22:48:39.599626"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-99@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Miss Darrin Yost"], ["email", "elf-99@avallone.com"], ["password_digest", "$2a$10$sesGdZrpu73WRp0BVMOrKujEQH6iZ2JsTL6ROsvRpPJtmpJpnzjKO"], ["created_at", "2016-07-08 22:48:39.674148"], ["updated_at", "2016-07-08 22:48:39.674148"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-100@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Meggie Kirlin"], ["email", "elf-100@avallone.com"], ["password_digest", "$2a$10$97eLcL1PVRKjMpiQefQyY.9eLTTMIRwUSfj05fYrqVtpir01FQDEC"], ["created_at", "2016-07-08 22:48:39.747157"], ["updated_at", "2016-07-08 22:48:39.747157"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-101@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mrs. Grace Rice"], ["email", "elf-101@avallone.com"], ["password_digest", "$2a$10$PvDgTNFfoATMf9St4TZ7wu/V9/nUZUzUQGTwkjVBEAXRgjaaPJw.e"], ["created_at", "2016-07-08 22:48:39.820349"], ["updated_at", "2016-07-08 22:48:39.820349"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-102@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jennifer Kirlin"], ["email", "elf-102@avallone.com"], ["password_digest", "$2a$10$iVaWAhoN3zlXiN51RE74guUyp7a9WYTYi9BomFq/xufz42RHF9HbC"], ["created_at", "2016-07-08 22:48:39.895029"], ["updated_at", "2016-07-08 22:48:39.895029"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-103@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Davon Brown"], ["email", "elf-103@avallone.com"], ["password_digest", "$2a$10$ZzZYaZtQrO1GigqIM84jj.yjq.VR0RJuL3AmC1OdHNwiXiEV8QX7u"], ["created_at", "2016-07-08 22:48:39.967363"], ["updated_at", "2016-07-08 22:48:39.967363"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-104@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Pietro Steuber"], ["email", "elf-104@avallone.com"], ["password_digest", "$2a$10$mpPX5SH1bqji6/VXc4807uOBXGuyzpM5.w0QsW2hvGnQLph7aY0kS"], ["created_at", "2016-07-08 22:48:40.041724"], ["updated_at", "2016-07-08 22:48:40.041724"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-105@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mr. Corbin Ruecker"], ["email", "elf-105@avallone.com"], ["password_digest", "$2a$10$jy/ptMmiKFpWZ3b2aGqsNu4bwIWtnbB/yoU/XXocRNQbmywi7In4S"], ["created_at", "2016-07-08 22:48:40.116145"], ["updated_at", "2016-07-08 22:48:40.116145"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('elf-106@avallone.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lou Stanton"], ["email", "elf-106@avallone.com"], ["password_digest", "$2a$10$yNfS8FUOtaPJqZc7YzZ3TuL3RnBEhh6wzOex.uFmJ0qnfqBi/9Z8S"], ["created_at", "2016-07-08 22:48:40.188813"], ["updated_at", "2016-07-08 22:48:40.188813"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT "users".* FROM "users"[0m
+
+
+Started POST "/login" for ::1 at 2016-07-08 18:56:15 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"U0FEb3L+eJEjKLMTI4uEB2lLam6uq1mNmInEtjWhoCnCcTYdL9+c8I8z8XCjUGEO6Ouy/Rlc1BzbkpGdrT5t2Q==", "session"=>{"email"=>"pilgrim@valinor.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", "pilgrim@valinor.com"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 114ms (ActiveRecord: 3.9ms)
+
+
+Started GET "/users/1" for ::1 at 2016-07-08 18:56:15 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered users/show.html.erb within layouts/application (1.8ms)
+  Rendered layouts/_rails_default.html.erb (374.8ms)
+  Rendered layouts/_shim.html.erb (0.7ms)
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (4.9ms)
+  Rendered layouts/_footer.html.erb (1.0ms)
+Completed 200 OK in 408ms (Views: 404.9ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users" for ::1 at 2016-07-08 18:56:19 -0400
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mUser Load (0.7ms)[0m  SELECT "users".* FROM "users"
+  Rendered users/index.html.erb within layouts/application (20.6ms)
+  Rendered layouts/_rails_default.html.erb (41.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 81ms (Views: 78.6ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users/6" for ::1 at 2016-07-08 18:56:22 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 6]]
+  Rendered users/show.html.erb within layouts/application (0.2ms)
+  Rendered layouts/_rails_default.html.erb (52.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (2.4ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 66ms (Views: 64.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users/1" for ::1 at 2016-07-08 18:56:58 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered users/show.html.erb within layouts/application (0.2ms)
+  Rendered layouts/_rails_default.html.erb (36.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.3ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 48ms (Views: 46.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/users" for ::1 at 2016-07-08 19:03:47 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" LIMIT 30 OFFSET 0
+  Rendered users/index.html.erb within layouts/application (507.7ms)
+  Rendered layouts/_rails_default.html.erb (270.2ms)
+  Rendered layouts/_shim.html.erb (0.6ms)
+  Rendered layouts/_header.html.erb (2.1ms)
+  Rendered layouts/_footer.html.erb (1.0ms)
+Completed 200 OK in 832ms (Views: 800.3ms | ActiveRecord: 4.4ms)
+
+
+Started GET "/" for ::1 at 2016-07-08 19:03:59 -0400
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (0.7ms)
+  Rendered layouts/_rails_default.html.erb (29.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.3ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 44ms (Views: 42.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/users" for ::1 at 2016-07-08 19:04:31 -0400
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" LIMIT 30 OFFSET 0
+  Rendered users/index.html.erb within layouts/application (9.8ms)
+  Rendered layouts/_rails_default.html.erb (30.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.5ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 50ms (Views: 47.7ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users?page=4" for ::1 at 2016-07-08 19:04:33 -0400
+Processing by UsersController#index as HTML
+  Parameters: {"page"=>"4"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" LIMIT 30 OFFSET 90[0m
+  Rendered users/index.html.erb within layouts/application (6.2ms)
+  Rendered layouts/_rails_default.html.erb (57.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.5ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 73ms (Views: 70.8ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/users?page=3" for ::1 at 2016-07-08 19:04:35 -0400
+Processing by UsersController#index as HTML
+  Parameters: {"page"=>"3"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" LIMIT 30 OFFSET 60
+  Rendered users/index.html.erb within layouts/application (9.1ms)
+  Rendered layouts/_rails_default.html.erb (32.8ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.5ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 52ms (Views: 48.9ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/users?page=4" for ::1 at 2016-07-08 19:04:36 -0400
+Processing by UsersController#index as HTML
+  Parameters: {"page"=>"4"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" LIMIT 30 OFFSET 90[0m
+  Rendered users/index.html.erb within layouts/application (7.0ms)
+  Rendered layouts/_rails_default.html.erb (37.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 55ms (Views: 52.8ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/users?page=1" for ::1 at 2016-07-08 19:04:39 -0400
+Processing by UsersController#index as HTML
+  Parameters: {"page"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" LIMIT 30 OFFSET 0
+  Rendered users/index.html.erb within layouts/application (13.4ms)
+  Rendered layouts/_rails_default.html.erb (38.5ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.7ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 69ms (Views: 66.4ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/users?page=2" for ::1 at 2016-07-08 19:04:44 -0400
+Processing by UsersController#index as HTML
+  Parameters: {"page"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" LIMIT 30 OFFSET 30[0m
+  Rendered users/index.html.erb within layouts/application (13.7ms)
+  Rendered layouts/_rails_default.html.erb (40.4ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 68ms (Views: 65.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for ::1 at 2016-07-08 19:04:46 -0400
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (0.2ms)
+  Rendered layouts/_rails_default.html.erb (35.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.1ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 45ms (Views: 44.6ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/users" for ::1 at 2016-07-08 19:09:41 -0400
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" LIMIT 30 OFFSET 0[0m
+  Rendered users/_user.html.erb (4.0ms)
+  Rendered users/index.html.erb within layouts/application (10.2ms)
+  Rendered layouts/_rails_default.html.erb (26.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.4ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 46ms (Views: 42.9ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/users/1" for ::1 at 2016-07-08 19:09:44 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered users/show.html.erb within layouts/application (0.7ms)
+  Rendered layouts/_rails_default.html.erb (23.0ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.2ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 34ms (Views: 32.8ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/users" for ::1 at 2016-07-08 19:09:48 -0400
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" LIMIT 30 OFFSET 0
+  Rendered users/_user.html.erb (3.8ms)
+  Rendered users/index.html.erb within layouts/application (9.3ms)
+  Rendered layouts/_rails_default.html.erb (24.0ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.5ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 42ms (Views: 40.1ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/users?page=4" for ::1 at 2016-07-08 19:09:50 -0400
+Processing by UsersController#index as HTML
+  Parameters: {"page"=>"4"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" LIMIT 30 OFFSET 90[0m
+  Rendered users/_user.html.erb (2.5ms)
+  Rendered users/index.html.erb within layouts/application (8.2ms)
+  Rendered layouts/_rails_default.html.erb (30.8ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.5ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 48ms (Views: 45.9ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/users?page=3" for ::1 at 2016-07-08 19:09:53 -0400
+Processing by UsersController#index as HTML
+  Parameters: {"page"=>"3"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" LIMIT 30 OFFSET 60
+  Rendered users/_user.html.erb (4.4ms)
+  Rendered users/index.html.erb within layouts/application (10.6ms)
+  Rendered layouts/_rails_default.html.erb (25.6ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.4ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 45ms (Views: 43.1ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/users/61" for ::1 at 2016-07-08 19:09:55 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"61"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 61]]
+  Rendered users/show.html.erb within layouts/application (0.2ms)
+  Rendered layouts/_rails_default.html.erb (26.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.2ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 36ms (Views: 35.0ms | ActiveRecord: 0.5ms)
