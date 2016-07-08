@@ -86,3 +86,35 @@ Processing by SessionsController#new as HTML
   Rendered layouts/_header.html.erb (0.3ms)
   Rendered layouts/_footer.html.erb (0.1ms)
 Completed 200 OK in 34ms (Views: 33.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for ::1 at 2016-07-08 16:29:21 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"BLgvOkDUpNcyDQvuwT1dA3ITR6ydTgHRmhWjeo7UbJyViF1IHfVAtp4WSY1B5rgK87OfPyq5jEDZDvZRFkuhbA==", "session"=>{"email"=>"", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1  [["email", ""]]
+  Rendered sessions/new.html.erb within layouts/application (1.7ms)
+  Rendered layouts/_rails_default.html.erb (30.4ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.4ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 88ms (Views: 56.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/about" for ::1 at 2016-07-08 16:29:25 -0400
+Processing by StaticPagesController#about as HTML
+  Rendered static_pages/about.html.erb within layouts/application (0.4ms)
+  Rendered layouts/_rails_default.html.erb (33.7ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.3ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 42ms (Views: 42.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/login" for ::1 at 2016-07-08 16:29:26 -0400
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.8ms)
+  Rendered layouts/_rails_default.html.erb (33.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  Rendered layouts/_header.html.erb (0.4ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 43ms (Views: 42.6ms | ActiveRecord: 0.0ms)
