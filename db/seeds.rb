@@ -10,7 +10,8 @@
 User.create!(name: "Gandalf",
   email: "pilgrim@valinor.com",
   password: 'shadowfax',
-  password_confirmation: 'shadowfax')
+  password_confirmation: 'shadowfax',
+  admin: true)
 
 User.create!(name: "Starbuck",
   email: "starbuck@galactica.com",

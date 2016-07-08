@@ -1757,3 +1757,603 @@ Processing by UsersController#show as HTML
   Rendered layouts/_header.html.erb (1.2ms)
   Rendered layouts/_footer.html.erb (0.1ms)
 Completed 200 OK in 36ms (Views: 35.0ms | ActiveRecord: 0.5ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddAdminToUsers (20160708231307)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (90.1ms)[0m  [1mALTER TABLE "users" ADD "admin" boolean DEFAULT 'f'[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160708231307"]]
+  [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (2.4ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.5ms)[0m  [1mUPDATE "users" SET "admin" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["admin", "t"], ["updated_at", "2016-07-08 23:15:19.894220"], ["id", 1]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (4.3ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36m (6.1ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20160707171227)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying, "email" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707171227"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+Migrating to AddIndexToUsersEmail (20160707174906)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707174906"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddPasswordDigestToUsers (20160707175507)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "users" ADD "password_digest" character varying[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160707175507"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddRememberDigestToUsers (20160708182146)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD "remember_digest" character varying[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160708182146"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to AddAdminToUsers (20160708231307)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (4.6ms)[0m  [1mALTER TABLE "users" ADD "admin" boolean DEFAULT 'f'[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160708231307"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (4.0ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('pilgrim@valinor.com') LIMIT 1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "admin", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "Gandalf"], ["email", "pilgrim@valinor.com"], ["password_digest", "$2a$10$wnoYkq872dPtcixY5IFpJeONoF.kOaiKfNvLAi62dAb4lB0BnILv6"], ["admin", "t"], ["created_at", "2016-07-08 23:17:31.155038"], ["updated_at", "2016-07-08 23:17:31.155038"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('starbuck@galactica.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Starbuck"], ["email", "starbuck@galactica.com"], ["password_digest", "$2a$10$yWdjKH8KFmuUSUalpPdMjujxwyH/ntKnH37DOj8/n5Q/Fi14oERxi"], ["created_at", "2016-07-08 23:17:31.228433"], ["updated_at", "2016-07-08 23:17:31.228433"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-1@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Wedge Antilles"], ["email", "farmer-1@tatooine.com"], ["password_digest", "$2a$10$ZIq16l0/DjYr6cK8TjgrxOITHQ78TYUT4fL4sMPXf14gMYH0/R9p."], ["created_at", "2016-07-08 23:17:31.302704"], ["updated_at", "2016-07-08 23:17:31.302704"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-2@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Chewbacca"], ["email", "farmer-2@tatooine.com"], ["password_digest", "$2a$10$JDStHMsbG29dbTeHRoMn4.SVEZQTfKqwsaIPCLiNnOum6xbXa/H0u"], ["created_at", "2016-07-08 23:17:31.380203"], ["updated_at", "2016-07-08 23:17:31.380203"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-3@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Han Solo"], ["email", "farmer-3@tatooine.com"], ["password_digest", "$2a$10$bPkv15nq4fEvOZVHlSbEtujKnsHUne8tJ8rkrlNr67.2b2n9IS2YG"], ["created_at", "2016-07-08 23:17:31.451911"], ["updated_at", "2016-07-08 23:17:31.451911"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-4@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Obi-Wan Kenobi"], ["email", "farmer-4@tatooine.com"], ["password_digest", "$2a$10$A9BldeqDYt1h8ZTZbrLYL.qmhc7r97HqaZRRl3cQ/WFtYKp.Dg1Wm"], ["created_at", "2016-07-08 23:17:31.526400"], ["updated_at", "2016-07-08 23:17:31.526400"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-5@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Leia Organa"], ["email", "farmer-5@tatooine.com"], ["password_digest", "$2a$10$IY3yqT03Kdg3fUeScloTVOaeyW8BrK3lwynkILCuAc8dickHAimIi"], ["created_at", "2016-07-08 23:17:31.601005"], ["updated_at", "2016-07-08 23:17:31.601005"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-6@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Obi-Wan Kenobi"], ["email", "farmer-6@tatooine.com"], ["password_digest", "$2a$10$8EuNPft8yJNtr5f9smLZ1uQ7m1yFmYvkuIWQmXH9dHvETKr6DznWG"], ["created_at", "2016-07-08 23:17:31.676160"], ["updated_at", "2016-07-08 23:17:31.676160"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-7@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Watto"], ["email", "farmer-7@tatooine.com"], ["password_digest", "$2a$10$xTksuzVZHYPdExO9N11U2uhynnRuCXXghGoTGBOhJtv3lSHVVNnEW"], ["created_at", "2016-07-08 23:17:31.748701"], ["updated_at", "2016-07-08 23:17:31.748701"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-8@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Chewbacca"], ["email", "farmer-8@tatooine.com"], ["password_digest", "$2a$10$A/n/RYjb6JbzN1z0FWe43.zEMPa/RV/kOgQpeb7IKNy.lNotpS9B6"], ["created_at", "2016-07-08 23:17:31.822873"], ["updated_at", "2016-07-08 23:17:31.822873"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-9@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Rune Haako"], ["email", "farmer-9@tatooine.com"], ["password_digest", "$2a$10$ZqJAOWECO3ExmXEwID5LmubsDB.3Fm58cQQBBggUof8B9NRAWW1XK"], ["created_at", "2016-07-08 23:17:31.894951"], ["updated_at", "2016-07-08 23:17:31.894951"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-10@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jabba the Hutt"], ["email", "farmer-10@tatooine.com"], ["password_digest", "$2a$10$uwmepUSoZBf7fgCFn2BCD.GyTiHSwn./798So6DNqp4hs5jXfXPyC"], ["created_at", "2016-07-08 23:17:31.968328"], ["updated_at", "2016-07-08 23:17:31.968328"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-11@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mace Windu"], ["email", "farmer-11@tatooine.com"], ["password_digest", "$2a$10$tgctBYlgcE5mV9xcicjnWu.BZbuZvNnW7ARwHLOu2W6.i8j3tRWvG"], ["created_at", "2016-07-08 23:17:32.042656"], ["updated_at", "2016-07-08 23:17:32.042656"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-12@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Vader"], ["email", "farmer-12@tatooine.com"], ["password_digest", "$2a$10$my8WCSaqxncaKV/FSBg2hu1Sz/jdSF1mVHRgmDxVwAsdPc0RlhLm6"], ["created_at", "2016-07-08 23:17:32.114083"], ["updated_at", "2016-07-08 23:17:32.114083"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-13@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Watto"], ["email", "farmer-13@tatooine.com"], ["password_digest", "$2a$10$QP3hik01OX4xyI/Wp3bPi.kWFu5Whjl/9IYuwcN4.4n7pe43M4h8C"], ["created_at", "2016-07-08 23:17:32.186314"], ["updated_at", "2016-07-08 23:17:32.186314"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-14@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Sheev Palpatine"], ["email", "farmer-14@tatooine.com"], ["password_digest", "$2a$10$Zccgf8ezkLkHS7PW8wxlducCdGnuOYTD73nxIKJqiH65/oHPMCqpm"], ["created_at", "2016-07-08 23:17:32.259451"], ["updated_at", "2016-07-08 23:17:32.259451"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-15@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Padme Amidala"], ["email", "farmer-15@tatooine.com"], ["password_digest", "$2a$10$MK2vZ7pa.forhrBFJlz3zuqf/UNUHchNr6Hjs/OuC6mNZ24rBWR96"], ["created_at", "2016-07-08 23:17:32.335073"], ["updated_at", "2016-07-08 23:17:32.335073"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-16@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Sheev Palpatine"], ["email", "farmer-16@tatooine.com"], ["password_digest", "$2a$10$xaNSEh9NaqKjHHMyQ1PRnueV5/QYDfWbZQWaIdxKcxHqXKCB8aln6"], ["created_at", "2016-07-08 23:17:32.409224"], ["updated_at", "2016-07-08 23:17:32.409224"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-17@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Sidious"], ["email", "farmer-17@tatooine.com"], ["password_digest", "$2a$10$Jrg.0gZTbfL24wnltFzdVOY6bpwtQmpw4OekVi2rT9vTNS/8g43Vy"], ["created_at", "2016-07-08 23:17:32.481770"], ["updated_at", "2016-07-08 23:17:32.481770"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-18@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Watto"], ["email", "farmer-18@tatooine.com"], ["password_digest", "$2a$10$8nZDiSlLoUC2j8694cn68.EfUZQ9Bf6Iz6JdgobJ.A.9azKedDhQW"], ["created_at", "2016-07-08 23:17:32.556824"], ["updated_at", "2016-07-08 23:17:32.556824"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-19@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lando Calrissian"], ["email", "farmer-19@tatooine.com"], ["password_digest", "$2a$10$kcIregh5oMWDI1TaronJM.BsGO2UsJUdV3B6pZVAdi6cVM1yCXzMG"], ["created_at", "2016-07-08 23:17:32.634340"], ["updated_at", "2016-07-08 23:17:32.634340"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-20@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Boba Fett"], ["email", "farmer-20@tatooine.com"], ["password_digest", "$2a$10$by.3qEHb0GwYHwWMCddK6eLC4DbEelUdyp57rb.3dbPvsATDjcTJe"], ["created_at", "2016-07-08 23:17:32.709534"], ["updated_at", "2016-07-08 23:17:32.709534"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-21@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jabba the Hutt"], ["email", "farmer-21@tatooine.com"], ["password_digest", "$2a$10$xFK8NXULUDBb11xrHdVEh.t2hACxR/F9CtvkAV.e5stfoBVfuI5qC"], ["created_at", "2016-07-08 23:17:32.783458"], ["updated_at", "2016-07-08 23:17:32.783458"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-22@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Qui-Gon Jinn"], ["email", "farmer-22@tatooine.com"], ["password_digest", "$2a$10$kiLShRzOyL3Q0FDvNLsHG.PWMZ6XhmkxGNIbHj19P0q8NPI0Pbw3K"], ["created_at", "2016-07-08 23:17:32.855764"], ["updated_at", "2016-07-08 23:17:32.855764"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-23@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Wedge Antilles"], ["email", "farmer-23@tatooine.com"], ["password_digest", "$2a$10$PkhGxAZZswqSNj8S0CD9V.rCxoxvuiqITlVIzUW13mOpFsbUipgQC"], ["created_at", "2016-07-08 23:17:32.929705"], ["updated_at", "2016-07-08 23:17:32.929705"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-24@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jabba the Hutt"], ["email", "farmer-24@tatooine.com"], ["password_digest", "$2a$10$QMXfXvfzMuMzpskT/5daAet2gca4lnBNTZIPWX5JhjM0LScJvUJSS"], ["created_at", "2016-07-08 23:17:33.001727"], ["updated_at", "2016-07-08 23:17:33.001727"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-25@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Han Solo"], ["email", "farmer-25@tatooine.com"], ["password_digest", "$2a$10$ttB068qQBv55bIQr9my2.uKaMGiL1CQ4zXc0V0gSDGpwlTOZn8CXC"], ["created_at", "2016-07-08 23:17:33.073942"], ["updated_at", "2016-07-08 23:17:33.073942"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-26@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Bail Organa"], ["email", "farmer-26@tatooine.com"], ["password_digest", "$2a$10$PLL7e6eTDZik4.SFfjUFKuizf4C7elpgen1pdkbuy6rtcYAXjFQx."], ["created_at", "2016-07-08 23:17:33.150038"], ["updated_at", "2016-07-08 23:17:33.150038"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-27@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Vader"], ["email", "farmer-27@tatooine.com"], ["password_digest", "$2a$10$tLir9xOa1BVyMacOHxfAIegzZEusgLGAyZJ/tq0v3wQgRKN/FCm4y"], ["created_at", "2016-07-08 23:17:33.225291"], ["updated_at", "2016-07-08 23:17:33.225291"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-28@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Qui-Gon Jinn"], ["email", "farmer-28@tatooine.com"], ["password_digest", "$2a$10$rE..FFP7m5VDFV042SeluuNW8V2fuQNofl0BFOT8hO8rkUcFvoj6m"], ["created_at", "2016-07-08 23:17:33.297449"], ["updated_at", "2016-07-08 23:17:33.297449"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-29@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Vader"], ["email", "farmer-29@tatooine.com"], ["password_digest", "$2a$10$/8KVd1WaUxbT5atf.sOQ0.z.laeChlo4UO7Z6wfUzaicIwwoiieVa"], ["created_at", "2016-07-08 23:17:33.373801"], ["updated_at", "2016-07-08 23:17:33.373801"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-30@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Anakin Skywalker"], ["email", "farmer-30@tatooine.com"], ["password_digest", "$2a$10$TXos4rQP3dClH4sNbFTVSeyl9wKfRoeHhxXnhB7SZreMBfCmfsa62"], ["created_at", "2016-07-08 23:17:33.446824"], ["updated_at", "2016-07-08 23:17:33.446824"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-31@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Han Solo"], ["email", "farmer-31@tatooine.com"], ["password_digest", "$2a$10$bmfILtLjfjXc5t2CtajPN.3iPCuvijUMjUD6lP3rHSb4O0Tof2oCO"], ["created_at", "2016-07-08 23:17:33.520596"], ["updated_at", "2016-07-08 23:17:33.520596"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-32@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Panaka"], ["email", "farmer-32@tatooine.com"], ["password_digest", "$2a$10$rb1A7VJqGT4Bsa8mmK1KjOuGH0Z3FO45A64RVy9hS87HJXBkeVoXC"], ["created_at", "2016-07-08 23:17:33.595605"], ["updated_at", "2016-07-08 23:17:33.595605"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-33@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mace Windu"], ["email", "farmer-33@tatooine.com"], ["password_digest", "$2a$10$OdbkxEaz2NTckh4msBPdleYQXxZI1Fnb.q46BGPtsL.3LmIlXdUTe"], ["created_at", "2016-07-08 23:17:33.667543"], ["updated_at", "2016-07-08 23:17:33.667543"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-34@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Yoda"], ["email", "farmer-34@tatooine.com"], ["password_digest", "$2a$10$0QkI4VHAWZDXrnPqznwRpu2/nYq0hgGA0h4fW2TmtgP.e2axWdaDi"], ["created_at", "2016-07-08 23:17:33.742160"], ["updated_at", "2016-07-08 23:17:33.742160"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-35@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mace Windu"], ["email", "farmer-35@tatooine.com"], ["password_digest", "$2a$10$2FjEgPcVx6X0FkmtCG8Zvuw3KbgIK9qxrohyJgpFH2gRubzY9jZuW"], ["created_at", "2016-07-08 23:17:33.816714"], ["updated_at", "2016-07-08 23:17:33.816714"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-36@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Luke Skywalker"], ["email", "farmer-36@tatooine.com"], ["password_digest", "$2a$10$5aB4oy7eCcHLd0izbtEPCuWF/7cyd2.c06C3uAOyqAOjQ3qhxcqRe"], ["created_at", "2016-07-08 23:17:33.888874"], ["updated_at", "2016-07-08 23:17:33.888874"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-37@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ki-Adi-Mundi"], ["email", "farmer-37@tatooine.com"], ["password_digest", "$2a$10$qqi8/FgN0nPltiButQ1JpeAE8t1EcQ2.s50IV7RAmCoNMT4Mq1fDm"], ["created_at", "2016-07-08 23:17:33.964101"], ["updated_at", "2016-07-08 23:17:33.964101"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-38@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Yoda"], ["email", "farmer-38@tatooine.com"], ["password_digest", "$2a$10$KOSkt1Oo1rP.yhPper40K.2UHYNcIaEVYo5CPW3fkrQTbX.DCadUe"], ["created_at", "2016-07-08 23:17:34.039474"], ["updated_at", "2016-07-08 23:17:34.039474"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-39@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Maul"], ["email", "farmer-39@tatooine.com"], ["password_digest", "$2a$10$StEc7.w7TlX6wy7fBEAx0upXyGk1npkLhzL.jgCh24EN4WCq37BLK"], ["created_at", "2016-07-08 23:17:34.112008"], ["updated_at", "2016-07-08 23:17:34.112008"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-40@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Obi-Wan Kenobi"], ["email", "farmer-40@tatooine.com"], ["password_digest", "$2a$10$kZsx9vVUgYXg.7AMjL8eeO2naPqqyYZMfblphoZJ0h4kgAQtE8LKO"], ["created_at", "2016-07-08 23:17:34.184320"], ["updated_at", "2016-07-08 23:17:34.184320"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-41@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Rune Haako"], ["email", "farmer-41@tatooine.com"], ["password_digest", "$2a$10$.YxbdiPcn/Egk8BMFSlpPenhVvz1/W/6A76O.0gLmmwrIcPDScIhC"], ["created_at", "2016-07-08 23:17:34.258861"], ["updated_at", "2016-07-08 23:17:34.258861"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-42@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lando Calrissian"], ["email", "farmer-42@tatooine.com"], ["password_digest", "$2a$10$N5igcJSVZ5s3yJJ3Gku1EOsfQsoGAxEYAkt/zOGqFByhilsdT5Fny"], ["created_at", "2016-07-08 23:17:34.332634"], ["updated_at", "2016-07-08 23:17:34.332634"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-43@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ki-Adi-Mundi"], ["email", "farmer-43@tatooine.com"], ["password_digest", "$2a$10$h42bEfmWCKkIi735chu3JeD0yLrPVbpHntX0VmPCcfiGBokMuZ2aW"], ["created_at", "2016-07-08 23:17:34.407980"], ["updated_at", "2016-07-08 23:17:34.407980"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-44@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Luke Skywalker"], ["email", "farmer-44@tatooine.com"], ["password_digest", "$2a$10$9Hg3GVRcwyS4Vb.3a8H23Ok5pioyooQkouB49MlNghV32z552.IIG"], ["created_at", "2016-07-08 23:17:34.483191"], ["updated_at", "2016-07-08 23:17:34.483191"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-45@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Watto"], ["email", "farmer-45@tatooine.com"], ["password_digest", "$2a$10$z1quwD1g4wCW2NGnB6NbDOnJ.X97lu4HtTeNUNExQEQGwgNnKOqIa"], ["created_at", "2016-07-08 23:17:34.555503"], ["updated_at", "2016-07-08 23:17:34.555503"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-46@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Padme Amidala"], ["email", "farmer-46@tatooine.com"], ["password_digest", "$2a$10$3l2kfjJsopEtr9ySdtnSOelIL7uaf8kQtSNgasqcR3OJbOSTqiOTq"], ["created_at", "2016-07-08 23:17:34.629693"], ["updated_at", "2016-07-08 23:17:34.629693"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-47@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Yoda"], ["email", "farmer-47@tatooine.com"], ["password_digest", "$2a$10$c9qd1jK2IC20ks4r5c77r.DZzl.4DP/pHWjuAnmC.ruCEGIu6W/.C"], ["created_at", "2016-07-08 23:17:34.705560"], ["updated_at", "2016-07-08 23:17:34.705560"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-48@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Luke Skywalker"], ["email", "farmer-48@tatooine.com"], ["password_digest", "$2a$10$RAHS4F2UMraNSvZc1Oac4.QDpH9uzcMfwNv3pY1j/HtNoMdpJlANi"], ["created_at", "2016-07-08 23:17:34.778425"], ["updated_at", "2016-07-08 23:17:34.778425"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-49@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Qui-Gon Jinn"], ["email", "farmer-49@tatooine.com"], ["password_digest", "$2a$10$8xsmj8eUFnNH3evHf9wSg./Xbmdni9bzBBbJSYxS33LsZ0R3jxVNe"], ["created_at", "2016-07-08 23:17:34.856495"], ["updated_at", "2016-07-08 23:17:34.856495"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-50@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Vader"], ["email", "farmer-50@tatooine.com"], ["password_digest", "$2a$10$Qte5nsNue2lhfuRdR3Os9u9aroauYedCpO5Xx9xume5ab7w59Vaby"], ["created_at", "2016-07-08 23:17:34.930702"], ["updated_at", "2016-07-08 23:17:34.930702"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-51@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Count Dooku"], ["email", "farmer-51@tatooine.com"], ["password_digest", "$2a$10$1v.w3oBZD0TQFajb1Ruccu3iBGb36t.FAxOdPnkS1PCRAhu9txW92"], ["created_at", "2016-07-08 23:17:35.004222"], ["updated_at", "2016-07-08 23:17:35.004222"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-52@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Obi-Wan Kenobi"], ["email", "farmer-52@tatooine.com"], ["password_digest", "$2a$10$Iv/VqruAb/PFTgBhj5/mJum.9xFzFnyzEEw0b1AZho9imSFPbrJDW"], ["created_at", "2016-07-08 23:17:35.076310"], ["updated_at", "2016-07-08 23:17:35.076310"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-53@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Borvo the Hutt"], ["email", "farmer-53@tatooine.com"], ["password_digest", "$2a$10$htBl4UlIp/y7XrDjG0H3hu0P1B0Iw3mZGYG9aOeoFHUhZ/.gkRyuS"], ["created_at", "2016-07-08 23:17:35.150204"], ["updated_at", "2016-07-08 23:17:35.150204"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-54@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Han Solo"], ["email", "farmer-54@tatooine.com"], ["password_digest", "$2a$10$0O1kLrbSAT4QsPVY84Xfx.JKs8CFCsHguMiQv0zxhVW59G5HJLYMW"], ["created_at", "2016-07-08 23:17:35.222548"], ["updated_at", "2016-07-08 23:17:35.222548"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-55@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Poe Dameron"], ["email", "farmer-55@tatooine.com"], ["password_digest", "$2a$10$S.wVG4KIQXqkOd.2BgPLRe4z84/K77RurISLXu7hOJF2fp9/b9wjK"], ["created_at", "2016-07-08 23:17:35.298103"], ["updated_at", "2016-07-08 23:17:35.298103"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-56@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Rune Haako"], ["email", "farmer-56@tatooine.com"], ["password_digest", "$2a$10$GdUuOVUVCsZZo1qZ3uw8xeHX.EYUJCh8r7xulDD6aucfCbXSf9N0G"], ["created_at", "2016-07-08 23:17:35.373751"], ["updated_at", "2016-07-08 23:17:35.373751"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-57@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ben Solo"], ["email", "farmer-57@tatooine.com"], ["password_digest", "$2a$10$Sd6HPcp2OL2x3z9a5lEWpu7p8X4FrLZZ4/3EMNptg7qp/u/j6X/RO"], ["created_at", "2016-07-08 23:17:35.446662"], ["updated_at", "2016-07-08 23:17:35.446662"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-58@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ben Solo"], ["email", "farmer-58@tatooine.com"], ["password_digest", "$2a$10$tkNgZu.m3FjomZMLMV7oee9hegagzzwnpcLBk2m9b5g.jyhD3blKK"], ["created_at", "2016-07-08 23:17:35.519555"], ["updated_at", "2016-07-08 23:17:35.519555"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-59@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lando Calrissian"], ["email", "farmer-59@tatooine.com"], ["password_digest", "$2a$10$mCEDi0YhdtKYEsQXBCj8POZvL899S6Rhoof2iTu..U6oicP0T6LaK"], ["created_at", "2016-07-08 23:17:35.593158"], ["updated_at", "2016-07-08 23:17:35.593158"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-60@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Wedge Antilles"], ["email", "farmer-60@tatooine.com"], ["password_digest", "$2a$10$ruGlxmKdhsZqWY8iMrGyWuHS.rNL8mx6T3oqp36FSz9A/p3d1maSa"], ["created_at", "2016-07-08 23:17:35.668454"], ["updated_at", "2016-07-08 23:17:35.668454"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-61@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jango Fett"], ["email", "farmer-61@tatooine.com"], ["password_digest", "$2a$10$d3lIz/QRxuhFNq91r0KVjOWJD9uwQoFLEYwQcvIgTT0DNWLs2Eb2a"], ["created_at", "2016-07-08 23:17:35.743626"], ["updated_at", "2016-07-08 23:17:35.743626"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-62@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Kylo Ren"], ["email", "farmer-62@tatooine.com"], ["password_digest", "$2a$10$fWvBQUXZPNiix5dmVo/M0uAtzXsBMLJECkcZ4o16yt21L0DkheOiq"], ["created_at", "2016-07-08 23:17:35.815201"], ["updated_at", "2016-07-08 23:17:35.815201"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-63@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Maul"], ["email", "farmer-63@tatooine.com"], ["password_digest", "$2a$10$tzjv82nubuKgpx6bcIMfbOQWarkPl4buu0ESw0GBOH4KjNv.0jPr2"], ["created_at", "2016-07-08 23:17:35.890458"], ["updated_at", "2016-07-08 23:17:35.890458"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-64@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Padme Amidala"], ["email", "farmer-64@tatooine.com"], ["password_digest", "$2a$10$5vjUp/f7TOYVuSy/Uv7dSePnp8VmfmkPUQr63uKR8Mn.YSaVvkiGS"], ["created_at", "2016-07-08 23:17:35.964241"], ["updated_at", "2016-07-08 23:17:35.964241"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-65@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Borvo the Hutt"], ["email", "farmer-65@tatooine.com"], ["password_digest", "$2a$10$2WkAfiAAD9g62FM4URU17eAKVWi/ZYNGgcncgSxAzlthDNrPthys6"], ["created_at", "2016-07-08 23:17:36.036920"], ["updated_at", "2016-07-08 23:17:36.036920"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-66@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Wedge Antilles"], ["email", "farmer-66@tatooine.com"], ["password_digest", "$2a$10$/SXLSf1XL53xv6miy6aFpu/IuIxyqx8FlTiJtwkY2yjE6e7VEAUlq"], ["created_at", "2016-07-08 23:17:36.109087"], ["updated_at", "2016-07-08 23:17:36.109087"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-67@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Maul"], ["email", "farmer-67@tatooine.com"], ["password_digest", "$2a$10$Jik7eFDRGtPPhX/cUTxTTOXL.n9LybC/urmtRk9MK6jMek/3AhKRO"], ["created_at", "2016-07-08 23:17:36.182472"], ["updated_at", "2016-07-08 23:17:36.182472"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-68@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Nute Gunray"], ["email", "farmer-68@tatooine.com"], ["password_digest", "$2a$10$vuq5BAu8goywnLhwBC.bFu36t/1YK4TxERheeWywubAC5XiAsS4QW"], ["created_at", "2016-07-08 23:17:36.257258"], ["updated_at", "2016-07-08 23:17:36.257258"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-69@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Mace Windu"], ["email", "farmer-69@tatooine.com"], ["password_digest", "$2a$10$bEGlj939tN4EKK1CsC4n.umPJPUtExn1lkgW.CMCKaMcqjWPiyepy"], ["created_at", "2016-07-08 23:17:36.330088"], ["updated_at", "2016-07-08 23:17:36.330088"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-70@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Vader"], ["email", "farmer-70@tatooine.com"], ["password_digest", "$2a$10$xUaAt/Zq.1ivcDefwS1QJOxTzXrsVSxtKPTDyWyhgcFSu8Mrj4KUu"], ["created_at", "2016-07-08 23:17:36.405367"], ["updated_at", "2016-07-08 23:17:36.405367"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-71@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Watto"], ["email", "farmer-71@tatooine.com"], ["password_digest", "$2a$10$2tAFoUvQx15H.v78El1VRO6/mMncHTTM1.7pKudb/y5azuIYkpwDm"], ["created_at", "2016-07-08 23:17:36.480413"], ["updated_at", "2016-07-08 23:17:36.480413"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-72@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Caedus"], ["email", "farmer-72@tatooine.com"], ["password_digest", "$2a$10$Q8s4uzm5SoZIF5qgqs3Dku4GyoSNECVnp6ufSVXMMqn2yfMZWdmSW"], ["created_at", "2016-07-08 23:17:36.555021"], ["updated_at", "2016-07-08 23:17:36.555021"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-73@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Luke Skywalker"], ["email", "farmer-73@tatooine.com"], ["password_digest", "$2a$10$1sFFLxeG2ynxzlO.FPA7euaMz.BNFlZhKYd50d2ItWZcUo1JC.qn2"], ["created_at", "2016-07-08 23:17:36.626503"], ["updated_at", "2016-07-08 23:17:36.626503"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-74@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Rune Haako"], ["email", "farmer-74@tatooine.com"], ["password_digest", "$2a$10$QTo7DJ8qY.z4ITwDJP8x2eRthxlI11qN8JB1F.ctwxmdKI5tDCH4C"], ["created_at", "2016-07-08 23:17:36.701690"], ["updated_at", "2016-07-08 23:17:36.701690"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-75@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Vader"], ["email", "farmer-75@tatooine.com"], ["password_digest", "$2a$10$unQGiIoRZy7cjOTX.kmlvucn92EFT3BtPBUZM3ZhJt1wNHOgab2KG"], ["created_at", "2016-07-08 23:17:36.776661"], ["updated_at", "2016-07-08 23:17:36.776661"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-76@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Bail Organa"], ["email", "farmer-76@tatooine.com"], ["password_digest", "$2a$10$Eh1RSX3Kjr9KccQxr6YoqOiKSQ4Qgpj6jHrGd4nz.zkuz2gURm28y"], ["created_at", "2016-07-08 23:17:36.848171"], ["updated_at", "2016-07-08 23:17:36.848171"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-77@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jar Jar Binks"], ["email", "farmer-77@tatooine.com"], ["password_digest", "$2a$10$.uCJ9aRxvJ3dvlQsLvVB4.YZDgRD2eEGI2vmrXiV6Cso5yG/mzi.y"], ["created_at", "2016-07-08 23:17:36.920543"], ["updated_at", "2016-07-08 23:17:36.920543"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-78@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Obi-Wan Kenobi"], ["email", "farmer-78@tatooine.com"], ["password_digest", "$2a$10$Hb05K1ukmMEPhRf3tj72.u7KE.50bG64i3aFJFTc0m32aZQ5USG/i"], ["created_at", "2016-07-08 23:17:36.993973"], ["updated_at", "2016-07-08 23:17:36.993973"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-79@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Wedge Antilles"], ["email", "farmer-79@tatooine.com"], ["password_digest", "$2a$10$LmlCg/gQR3liJlJVHkeGvunYQeZ4aDcejFMYYLfpT1fPNnNvFGz8e"], ["created_at", "2016-07-08 23:17:37.066111"], ["updated_at", "2016-07-08 23:17:37.066111"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-80@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Anakin Skywalker"], ["email", "farmer-80@tatooine.com"], ["password_digest", "$2a$10$KXepQGmdwjxYtE7/f0KqlOqcmdYuFmY7qd/8cLAOLdi44DfFnB0pG"], ["created_at", "2016-07-08 23:17:37.139199"], ["updated_at", "2016-07-08 23:17:37.139199"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-81@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jar Jar Binks"], ["email", "farmer-81@tatooine.com"], ["password_digest", "$2a$10$VvVXDNNngqceBZcrwFGCgOEzaaj085o9MmGtthgv4capFAivH1cEK"], ["created_at", "2016-07-08 23:17:37.211382"], ["updated_at", "2016-07-08 23:17:37.211382"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-82@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jabba the Hutt"], ["email", "farmer-82@tatooine.com"], ["password_digest", "$2a$10$bV4..qI7MEKPb6tCkXl/J.XU2LaG40Ncumdq5A2Yt1UubLnH3AWI."], ["created_at", "2016-07-08 23:17:37.285476"], ["updated_at", "2016-07-08 23:17:37.285476"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-83@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jabba the Hutt"], ["email", "farmer-83@tatooine.com"], ["password_digest", "$2a$10$PVJTlAR8zJK9VZmZCsVVOOoyYr8G.z1KaE1wGuSnOea24nL2L89Cm"], ["created_at", "2016-07-08 23:17:37.357411"], ["updated_at", "2016-07-08 23:17:37.357411"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-84@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Panaka"], ["email", "farmer-84@tatooine.com"], ["password_digest", "$2a$10$FZjDIZyRfsQbw.YV433ISeP0O9vLAXsEDyZU1VO67pJuoOvbKYCqi"], ["created_at", "2016-07-08 23:17:37.429709"], ["updated_at", "2016-07-08 23:17:37.429709"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-85@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Darth Sidious"], ["email", "farmer-85@tatooine.com"], ["password_digest", "$2a$10$hAF1tYlFJLxnqhmo8AoibeOgNHLNCarrylVtIFXDgHAAdFwWmmf7q"], ["created_at", "2016-07-08 23:17:37.503067"], ["updated_at", "2016-07-08 23:17:37.503067"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-86@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Sheev Palpatine"], ["email", "farmer-86@tatooine.com"], ["password_digest", "$2a$10$Lj4/UUtrYHa6Ik3EEBpHF.HTYr58BZiWZOev6syGe08RhZZqWjx0K"], ["created_at", "2016-07-08 23:17:37.577765"], ["updated_at", "2016-07-08 23:17:37.577765"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-87@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Leia Organa"], ["email", "farmer-87@tatooine.com"], ["password_digest", "$2a$10$OEaavIhcSTnslluIWn0wkOvKeME236loTj6oDxOA819RATXbswJtW"], ["created_at", "2016-07-08 23:17:37.650134"], ["updated_at", "2016-07-08 23:17:37.650134"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-88@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Padme Amidala"], ["email", "farmer-88@tatooine.com"], ["password_digest", "$2a$10$.uqll9RV4/OX6EAVkFnZcuXKX1cLC9KqCRFgK0TO3jDBSWhhvxc3."], ["created_at", "2016-07-08 23:17:37.723259"], ["updated_at", "2016-07-08 23:17:37.723259"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-89@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Wedge Antilles"], ["email", "farmer-89@tatooine.com"], ["password_digest", "$2a$10$VD.FEn8CHpH23tqMR7OYBuUssO4fa/QRMqmoILw89M/SAzhlL8b66"], ["created_at", "2016-07-08 23:17:37.797696"], ["updated_at", "2016-07-08 23:17:37.797696"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-90@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Poe Dameron"], ["email", "farmer-90@tatooine.com"], ["password_digest", "$2a$10$qZfzKA9drszISYAohSL1ZuBJZmHAp8bpFOF.OTiWO4yhu5IglN.wm"], ["created_at", "2016-07-08 23:17:37.869112"], ["updated_at", "2016-07-08 23:17:37.869112"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-91@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Luke Skywalker"], ["email", "farmer-91@tatooine.com"], ["password_digest", "$2a$10$B1OOQwDc5RQgKDH3FxQIfOG2UmDl7Uj2RqkRdJcNHFlsP2WXXHwZq"], ["created_at", "2016-07-08 23:17:37.941268"], ["updated_at", "2016-07-08 23:17:37.941268"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-92@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jabba the Hutt"], ["email", "farmer-92@tatooine.com"], ["password_digest", "$2a$10$Np8.OwTVYs5NOiOYy0DJsOtq7sAZ3pOTFvlHFNL47f1Gwnu63NKZW"], ["created_at", "2016-07-08 23:17:38.014996"], ["updated_at", "2016-07-08 23:17:38.014996"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-93@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Chewbacca"], ["email", "farmer-93@tatooine.com"], ["password_digest", "$2a$10$nk6RIwO0TxxyTTTy20pqg.1UsAk5hJ7xNLsX/f8Yrq5wC3S1o4mm2"], ["created_at", "2016-07-08 23:17:38.089370"], ["updated_at", "2016-07-08 23:17:38.089370"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-94@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Ben Solo"], ["email", "farmer-94@tatooine.com"], ["password_digest", "$2a$10$r6AJmlAQ7rO.oAi064O3OOUplGJ4an.9PtFAc4sYyAia2.cJcrPDe"], ["created_at", "2016-07-08 23:17:38.161572"], ["updated_at", "2016-07-08 23:17:38.161572"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-95@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Wedge Antilles"], ["email", "farmer-95@tatooine.com"], ["password_digest", "$2a$10$4YtpUWggodIw4sUouBULaONmI5eAHt2SD1AOJ634hgoQNk4XI9G5S"], ["created_at", "2016-07-08 23:17:38.235662"], ["updated_at", "2016-07-08 23:17:38.235662"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-96@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Lando Calrissian"], ["email", "farmer-96@tatooine.com"], ["password_digest", "$2a$10$M2p5GbNdU0jCL90vdDMU3e9eyXec6q9zVYiovLbKCUkO8vlPQBaOO"], ["created_at", "2016-07-08 23:17:38.310259"], ["updated_at", "2016-07-08 23:17:38.310259"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-97@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Leia Organa"], ["email", "farmer-97@tatooine.com"], ["password_digest", "$2a$10$jI3As43eOvMO/6CdcVzjy.MJqjLxn5oq1u.CF3Sp.CsWPMKaAT0Ry"], ["created_at", "2016-07-08 23:17:38.383140"], ["updated_at", "2016-07-08 23:17:38.383140"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-98@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Obi-Wan Kenobi"], ["email", "farmer-98@tatooine.com"], ["password_digest", "$2a$10$Hl1HXEh7Hn4BpHvRrVqiI.0beyb.Rzx7PxZuvqu8jsGcesC026dfS"], ["created_at", "2016-07-08 23:17:38.456642"], ["updated_at", "2016-07-08 23:17:38.456642"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-99@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Count Dooku"], ["email", "farmer-99@tatooine.com"], ["password_digest", "$2a$10$Fq2lrSSQqcdElSQtfh3XYOcoRrM1xbbEVnb7XZL0MHWs6n3p9BB32"], ["created_at", "2016-07-08 23:17:38.529136"], ["updated_at", "2016-07-08 23:17:38.529136"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-100@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Poe Dameron"], ["email", "farmer-100@tatooine.com"], ["password_digest", "$2a$10$e1wuZehnqKJqX83VxdKoIObe.qsKSopfOxZLHLyjAA8yFAggURJha"], ["created_at", "2016-07-08 23:17:38.603434"], ["updated_at", "2016-07-08 23:17:38.603434"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-101@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Qui-Gon Jinn"], ["email", "farmer-101@tatooine.com"], ["password_digest", "$2a$10$PfPbjkjLLuA8WQHLoMrkkOFvYsT7GmlAT6v0.3/ZlzFtxRUBdVwEK"], ["created_at", "2016-07-08 23:17:38.683313"], ["updated_at", "2016-07-08 23:17:38.683313"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-102@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Jabba the Hutt"], ["email", "farmer-102@tatooine.com"], ["password_digest", "$2a$10$0uKllJSwf9MUZ0gt3cpvFeg2nYneD1U/7EOrC8a3fjY11JqmHM0nS"], ["created_at", "2016-07-08 23:17:38.758182"], ["updated_at", "2016-07-08 23:17:38.758182"]]
+  [1m[36m (28.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-103@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Count Dooku"], ["email", "farmer-103@tatooine.com"], ["password_digest", "$2a$10$eu3lbCvU3/u7qlgLZpelEerwZkjVWG3G1dg3usH9MfwWlkmFCeDOm"], ["created_at", "2016-07-08 23:17:38.864879"], ["updated_at", "2016-07-08 23:17:38.864879"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-104@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Padme Amidala"], ["email", "farmer-104@tatooine.com"], ["password_digest", "$2a$10$nrpdZAtJ5YDDaDr.X9UPkeoEnApfZuEW/bkCW5uBCC3PomRYlkq8i"], ["created_at", "2016-07-08 23:17:38.938011"], ["updated_at", "2016-07-08 23:17:38.938011"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-105@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Bail Organa"], ["email", "farmer-105@tatooine.com"], ["password_digest", "$2a$10$n3Xr7Dl7lCYBeZz2iVf23.Vg8NKN0GY8dDj/uOJ/ymySyZX8.nmCq"], ["created_at", "2016-07-08 23:17:39.011698"], ["updated_at", "2016-07-08 23:17:39.011698"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-106@tatooine.com') LIMIT 1[0m
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "Boba Fett"], ["email", "farmer-106@tatooine.com"], ["password_digest", "$2a$10$ShZLVpBJEENFe62E8mq.Xui37gLQhjoa5.VBKEjQbaunpRoEuLwd6"], ["created_at", "2016-07-08 23:17:39.084063"], ["updated_at", "2016-07-08 23:17:39.084063"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/patch/users/2?admin=1" for ::1 at 2016-07-08 19:20:29 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+
+ActionController::RoutingError (No route matches [GET] "/patch/users/2"):
+  actionpack (4.2.6) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  web-console (2.3.0) lib/web_console/middleware.rb:28:in `block in call'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `catch'
+  web-console (2.3.0) lib/web_console/middleware.rb:18:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  railties (4.2.6) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.6) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.6) lib/rails/rack/logger.rb:20:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  rack (1.6.4) lib/rack/methodoverride.rb:22:in `call'
+  rack (1.6.4) lib/rack/runtime.rb:18:in `call'
+  activesupport (4.2.6) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  actionpack (4.2.6) lib/action_dispatch/middleware/static.rb:120:in `call'
+  rack (1.6.4) lib/rack/sendfile.rb:113:in `call'
+  railties (4.2.6) lib/rails/engine.rb:518:in `call'
+  railties (4.2.6) lib/rails/application.rb:165:in `call'
+  rack (1.6.4) lib/rack/lock.rb:17:in `call'
+  rack (1.6.4) lib/rack/content_length.rb:15:in `call'
+  rack (1.6.4) lib/rack/handler/webrick.rb:88:in `service'
+  /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/httpserver.rb:138:in `service'
+  /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/httpserver.rb:94:in `run'
+  /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/2.2.0/webrick/server.rb:294:in `block in start_thread'
+
+
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/routes/_route.html.erb (1.8ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/routes/_table.html.erb (12.8ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (13.6ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/actionpack-4.2.6/lib/action_dispatch/middleware/templates/rescues/routing_error.html.erb within rescues/layout (128.0ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (582.2ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/apprentice/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (670.4ms)
+
+
+Started GET "/users/2?admin=1" for ::1 at 2016-07-08 19:20:45 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"admin"=>"1", "id"=>"2"}
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered users/show.html.erb within layouts/application (1.1ms)
+  Rendered layouts/_rails_default.html.erb (287.7ms)
+  Rendered layouts/_shim.html.erb (0.6ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_header.html.erb (5.1ms)
+  Rendered layouts/_footer.html.erb (1.1ms)
+Completed 200 OK in 331ms (Views: 309.1ms | ActiveRecord: 3.8ms)
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+
+
+Started GET "/users/2?admin=true" for ::1 at 2016-07-08 19:22:05 -0400
+Processing by UsersController#show as HTML
+  Parameters: {"admin"=>"true", "id"=>"2"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  Rendered users/show.html.erb within layouts/application (0.2ms)
+  Rendered layouts/_rails_default.html.erb (30.1ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.3ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 40ms (Views: 38.7ms | ActiveRecord: 0.7ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 2]]
+
+
+Started GET "/users" for ::1 at 2016-07-08 19:23:49 -0400
+Processing by UsersController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "users"[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" LIMIT 30 OFFSET 0
+  Rendered users/_user.html.erb (4.5ms)
+  Rendered users/index.html.erb within layouts/application (12.6ms)
+  Rendered layouts/_rails_default.html.erb (29.6ms)
+  Rendered layouts/_shim.html.erb (0.1ms)
+  Rendered layouts/_header.html.erb (0.6ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 53ms (Views: 50.8ms | ActiveRecord: 1.1ms)
