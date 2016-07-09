@@ -3569,3 +3569,150 @@ Processing by Rails::MailersController#preview as HTML
 UserMailer#account_activation: processed outbound mail in 19.4ms
   Rendered text template (0.0ms)
 Completed 200 OK in 25ms (Views: 0.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/" for ::1 at 2016-07-09 10:27:50 -0400
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (0.4ms)
+  Rendered layouts/_rails_default.html.erb (474.5ms)
+  Rendered layouts/_shim.html.erb (0.3ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (35.8ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 524ms (Views: 521.8ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/assets/account_activations.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-07-09 10:27:51 -0400
+
+
+Started GET "/assets/account_activations.self-19a187bec6cdb96d6de80a61c16c857c613536adf9138476bd367db38d282635.js?body=1" for ::1 at 2016-07-09 10:27:51 -0400
+
+
+Started GET "/signup" for ::1 at 2016-07-09 10:27:52 -0400
+Processing by UsersController#new as HTML
+  Rendered shared/_error_messages.html.erb (1.6ms)
+  Rendered users/_form.html.erb (266.2ms)
+  Rendered users/new.html.erb within layouts/application (267.6ms)
+  Rendered layouts/_rails_default.html.erb (19.9ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.1ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 301ms (Views: 299.8ms | ActiveRecord: 0.2ms)
+
+
+Started POST "/signup" for ::1 at 2016-07-09 10:28:29 -0400
+Processing by UsersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"vJTCbxYhjtnTMUonxhZV+EtSLTfrucUtaSm+4TLCrQeN6lvWNIE9lUicIn0xjDD5VDryzgTW6aLz5BEKSE6j2A==", "user"=>{"name"=>"jim", "email"=>"jwr1050@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create my account"}
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('jwr1050@gmail.com') LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "created_at", "updated_at", "activation_digest") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["name", "jim"], ["email", "jwr1050@gmail.com"], ["password_digest", "$2a$10$yrHZ3vEFprlNeuZ40jXaaePSn4vxfcgsffhGIs/9XTYBD8cIS8/6W"], ["created_at", "2016-07-09 14:28:30.076852"], ["updated_at", "2016-07-09 14:28:30.076852"], ["activation_digest", "$2a$10$aI/IxtRb89p7GbePtsen0uW0MEpPm4e02ExUo6OvDMdZCIcYuqkju"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  Rendered user_mailer/account_activation.html.erb within layouts/mailer (0.2ms)
+  Rendered user_mailer/account_activation.text.erb within layouts/mailer (0.1ms)
+
+UserMailer#account_activation: processed outbound mail in 13.3ms
+
+Sent mail to jwr1050@gmail.com (8.6ms)
+Date: Sat, 09 Jul 2016 10:28:30 -0400
+From: noreply@example.com
+To: jwr1050@gmail.com
+Message-ID: <57810a0e3b96e_100c93fc3918181cc8212d@Joels-MacBook-Pro.local.mail>
+Subject: Big Papi Bloggo Account Activation
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_57810a0e3a092_100c93fc3918181cc82094";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_57810a0e3a092_100c93fc3918181cc82094
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Namari=C3=A9 jim,
+
+Welcome to Big Papi Bloggo's MegaBlog! Click on the link below to activat=
+e your account:
+
+https://localhost:3000/account_activations/vBFy7RhGT5BxHqiQM1MApA/edit?em=
+ail=3Djwr1050%40gmail.com
+
+
+----==_mimepart_57810a0e3a092_100c93fc3918181cc82094
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <body>
+    <h1>Big Papi Bloggo's MegaBlog</h1>
+
+<p>Namari=C3=A9 jim,</p>
+
+<p>
+Welcome to Big Papi Bloggo's MegaBlog! Click on the link below to activat=
+e your account:
+</p>
+
+<a href=3D"https://localhost:3000/account_activations/vBFy7RhGT5BxHqiQM1M=
+ApA/edit?email=3Djwr1050%40gmail.com">Activate</a>
+
+
+  </body>
+</html>
+
+----==_mimepart_57810a0e3a092_100c93fc3918181cc82094--
+
+Redirected to http://localhost:3000/
+Completed 302 Found in 254ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/" for ::1 at 2016-07-09 10:28:30 -0400
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (0.1ms)
+  Rendered layouts/_rails_default.html.erb (17.0ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.1ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 24ms (Views: 23.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/account_activations/-L9kBsbIjmrqpJGB0TUKcA/edit?email=jwr1050%40gmail.com" for ::1 at 2016-07-09 11:07:51 -0400
+Processing by AccountActivationsController#edit as HTML
+  Parameters: {"email"=>"jwr1050@gmail.com", "id"=>"-L9kBsbIjmrqpJGB0TUKcA"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "jwr1050@gmail.com"]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 79ms (ActiveRecord: 1.4ms)
+
+
+Started GET "/" for ::1 at 2016-07-09 11:07:51 -0400
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (0.2ms)
+  Rendered layouts/_rails_default.html.erb (29.3ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.7ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 40ms (Views: 39.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/account_activations/-L9kBsbIjmrqpJGB0TUKcA/edit?email=pilgrim%40valinor.com" for ::1 at 2016-07-09 11:08:20 -0400
+Processing by AccountActivationsController#edit as HTML
+  Parameters: {"email"=>"pilgrim@valinor.com", "id"=>"-L9kBsbIjmrqpJGB0TUKcA"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 LIMIT 1[0m  [["email", "pilgrim@valinor.com"]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2016-07-09 11:08:20 -0400
+Processing by StaticPagesController#home as HTML
+  Rendered static_pages/home.html.erb within layouts/application (0.1ms)
+  Rendered layouts/_rails_default.html.erb (21.2ms)
+  Rendered layouts/_shim.html.erb (0.0ms)
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  Rendered layouts/_header.html.erb (1.1ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 28ms (Views: 28.0ms | ActiveRecord: 0.2ms)
