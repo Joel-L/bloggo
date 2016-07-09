@@ -3520,3 +3520,52 @@ ORDER BY c.conname
   [1m[36mUser Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER('farmer-106@tatooine.com') LIMIT 1[0m
   [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("name", "email", "password_digest", "activated", "activated_at", "created_at", "updated_at", "activation_digest") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["name", "Kylo Ren"], ["email", "farmer-106@tatooine.com"], ["password_digest", "$2a$10$6XW0k8.REUcpXvPGrmkS1uY/VJK.6tqJqXEBmWyHBEjos8g4KR/Ie"], ["activated", "t"], ["activated_at", "2016-07-09 13:35:15.400857"], ["created_at", "2016-07-09 13:35:15.467579"], ["updated_at", "2016-07-09 13:35:15.467579"], ["activation_digest", "$2a$10$CHXrHy.d70I3SE0Kn8.95edVS.aibyqF.YHrMdXimSlpCzV7i19O2"]]
   [1m[36m (8.5ms)[0m  [1mCOMMIT[0m
+
+
+Started GET "/rails/mailers/user_mailer/account_activation" for ::1 at 2016-07-09 10:12:49 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::MailersController#preview as HTML
+  Parameters: {"path"=>"user_mailer/account_activation"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  Rendered user_mailer/account_activation.html.erb within layouts/mailer (1.8ms)
+  Rendered user_mailer/account_activation.text.erb within layouts/mailer (0.4ms)
+
+UserMailer#account_activation: processed outbound mail in 198.9ms
+  Rendered /Users/joellambdin/.rbenv/versions/2.3.0/lib/ruby/gems/2.3.0/gems/railties-4.2.6/lib/rails/templates/rails/mailers/email.html.erb (8.1ms)
+Completed 200 OK in 242ms (Views: 12.8ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/rails/mailers/user_mailer/account_activation?part=text%2Fhtml" for ::1 at 2016-07-09 10:12:50 -0400
+Processing by Rails::MailersController#preview as HTML
+  Parameters: {"part"=>"text/html", "path"=>"user_mailer/account_activation"}
+  [1m[36mUser Load (1.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  Rendered user_mailer/account_activation.html.erb within layouts/mailer (0.4ms)
+  Rendered user_mailer/account_activation.text.erb within layouts/mailer (0.3ms)
+
+UserMailer#account_activation: processed outbound mail in 20.6ms
+  Rendered text template (0.0ms)
+Completed 200 OK in 27ms (Views: 1.4ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/rails/mailers/user_mailer/account_activation?part=text%2Fplain" for ::1 at 2016-07-09 10:12:57 -0400
+Processing by Rails::MailersController#preview as HTML
+  Parameters: {"part"=>"text/plain", "path"=>"user_mailer/account_activation"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  Rendered user_mailer/account_activation.html.erb within layouts/mailer (0.5ms)
+  Rendered user_mailer/account_activation.text.erb within layouts/mailer (0.2ms)
+
+UserMailer#account_activation: processed outbound mail in 16.3ms
+  Rendered text template (0.0ms)
+Completed 200 OK in 21ms (Views: 0.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/rails/mailers/user_mailer/account_activation?part=text%2Fhtml" for ::1 at 2016-07-09 10:13:04 -0400
+Processing by Rails::MailersController#preview as HTML
+  Parameters: {"part"=>"text/html", "path"=>"user_mailer/account_activation"}
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  Rendered user_mailer/account_activation.html.erb within layouts/mailer (1.0ms)
+  Rendered user_mailer/account_activation.text.erb within layouts/mailer (0.5ms)
+
+UserMailer#account_activation: processed outbound mail in 19.4ms
+  Rendered text template (0.0ms)
+Completed 200 OK in 25ms (Views: 0.3ms | ActiveRecord: 0.7ms)

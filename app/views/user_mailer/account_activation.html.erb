@@ -1,0 +1,11 @@
+<h1>Big Papi Bloggo's MegaBlog</h1>
+
+<p>Namarié <%= @user.name %>,</p>
+
+<p>
+Welcome to Big Papi Bloggo's MegaBlog! Click on the link below to activate your account:
+</p>
+
+<%= link_to "Activate", edit_account_activation_url(@user.activation_token,
+                                                    email: @user.email) %>
+
