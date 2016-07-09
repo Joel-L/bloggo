@@ -11,12 +11,16 @@ User.create!(name: "Gandalf",
   email: "pilgrim@valinor.com",
   password: 'shadowfax',
   password_confirmation: 'shadowfax',
-  admin: true)
+  admin: true,
+  activated: true,
+  activated_at: Time.zone.now)
 
 User.create!(name: "Starbuck",
   email: "starbuck@galactica.com",
   password: 'sosayweall',
-  password_confirmation: 'sosayweall')
+  password_confirmation: 'sosayweall',
+  activated: true,
+  activated_at: Time.zone.now)
 
 106.times do |n|
   name = Faker::StarWars.character
@@ -25,5 +29,7 @@ User.create!(name: "Starbuck",
   User.create!(name: name,
     email: email,
     password: password,
-    password_confirmation: password)
+    password_confirmation: password,
+    activated: true,
+    activated_at: Time.zone.now)
 end
