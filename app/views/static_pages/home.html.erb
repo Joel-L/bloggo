@@ -1,5 +1,18 @@
-<div class="center jumbotron">
-  <h1>Bloggo</h1>
-    <p><strong>This is the homepage for Big Papi Bloggo's M-M-M-M-Megablog</strong></p>
-  <%= link_to "sign up", signup_path, class: "btn btn-lg btn-primary" %>
-</div>
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      <section class="post_form">
+        <%= render 'shared/post_form' %>
+      </section>
+    </aside>
+  </div> 
+<% else%>
+  <div class="center jumbotron">
+    <h1>Bloggo</h1>
+      <p><strong>This is the homepage for Big Papi Bloggo's M-M-M-M-Megablog</strong></p>
+    <%= link_to "sign up", signup_path, class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>

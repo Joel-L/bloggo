@@ -30,7 +30,7 @@ gem 'faker'
 gem 'will_paginate', '3.1.0'
 gem 'bootstrap-will_paginate', '0.0.10'
 
-gem 'haml'
+# gem 'haml'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
