@@ -60,16 +60,20 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
 
-  private
-
-  def downcase_email 
-    self.email = email.downcase
+  def feed 
+    Post.where("user_id = ?", id)
   end
 
-  def create_activation_digest 
-    self.activation_token = User.new_token
-    self.activation_digest = User.digest(activation_token)
-  end
+    private
+
+    def downcase_email 
+      self.email = email.downcase
+    end
+
+    def create_activation_digest 
+      self.activation_token = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
 
 
 end
