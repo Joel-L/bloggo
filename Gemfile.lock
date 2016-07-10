@@ -59,6 +59,8 @@ GEM
       i18n (~> 0.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    haml (4.0.7)
+      tilt
     i18n (0.7.0)
     jbuilder (2.5.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -184,6 +186,7 @@ DEPENDENCIES
   bootstrap-will_paginate (= 0.0.10)
   byebug
   faker
+  haml
   jbuilder (~> 2.0)
   jquery-rails
   pg (~> 0.15)
@@ -199,4 +202,4 @@ DEPENDENCIES
   will_paginate (= 3.1.0)
 
 BUNDLED WITH
-   1.10.6
+   1.12.5
