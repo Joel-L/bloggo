@@ -2,7 +2,7 @@
   <%= link_to gravatar_for(post.user, size: 50), post.user %>
   <span class="user"><%= link_to post.user.name, post.user %></span>
   <% if post.title.present? %>
-    <span class="title"><%= post.title %></span>
+    <span class="title"><h4><%= post.title %></h4></span>
   <% end %>
   <span class="content"><%= post.content %></span>
   <span class="timestamp">
