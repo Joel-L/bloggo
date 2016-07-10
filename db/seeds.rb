@@ -33,3 +33,13 @@ User.create!(name: "Starbuck",
     activated: true,
     activated_at: Time.zone.now)
 end
+
+users = User.order(:created_at).take(6)
+50.times do
+  title = Faker::Superhero.power
+  content = Faker::Hipster.sentences(3).join(' ')
+  users.each do |user| 
+    user.posts.create!(title: title, content: content) 
+  end
+end
+
