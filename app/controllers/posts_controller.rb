@@ -15,7 +15,7 @@ class PostsController < ApplicationController
 
   def destroy 
     @post.destroy
-    flash[:success] = "Bloggo...deleted. It was only a fool's hope, as I have been reminded"
+    flash[:success] = "Bloggo...deleted. It was only a fool's hope, as I have been reminded."
     redirect_to request.referrer || root_url
   end
 
